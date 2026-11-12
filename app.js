@@ -89,6 +89,14 @@ function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";
 function emi(){const p=Math.max(0,+$("amount").value||0),annual=Math.max(0,Math.min(40,+$("rate").value||0)),r=annual/1200,n=(+$("years").value||1)*12,v=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),total=v*n;$("emi").textContent=rupees(v||0);$("yearLabel").textContent=$("years").value+" years";$("loanSummary").textContent="Total repayment: "+rupees(total)+" · Interest: "+rupees(total-p)}
 function fuelCost(){const d=Math.max(0,+$("distance").value||0),e=Math.max(.1,+$("efficiency").value||.1),p=Math.max(0,+$("price").value||0),units=d/e,cost=units*p;$("fuelCost").textContent=rupees(cost);$("fuelSummary").textContent=units.toFixed(1)+" litres / kWh estimated per month"}
 function onRoad(){const p=Math.max(0,+$("exPrice").value||0),tax=Math.max(0,Math.min(40,+$("taxRate").value||0))/100,other=Math.max(0,+$("otherCost").value||0);$("onRoad").textContent=rupees(p+p*tax+other)}
+function linkRange(numberId,rangeId){
+ const number=$(numberId),range=$(rangeId);
+ number.addEventListener("input",()=>{range.value=String(Math.max(+range.min,Math.min(+range.max,+number.value||0)));});
+ range.addEventListener("input",()=>{number.value=range.value;number.dispatchEvent(new Event("input",{bubbles:true}))});
+}
+linkRange("amount","amountRange");
+linkRange("rate","rateRange");
+linkRange("distance","distanceRange");
 ["amount","rate","years"].forEach(id=>$(id).addEventListener("input",emi));
 ["distance","efficiency","price"].forEach(id=>$(id).addEventListener("input",fuelCost));
 ["exPrice","taxRate","otherCost"].forEach(id=>$(id).addEventListener("input",onRoad));
