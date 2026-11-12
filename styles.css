@@ -370,3 +370,7 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
 .buyer-notes-grid li{margin:0 0 8px;font-size:13px;line-height:1.5;color:#43546b}
 .buyer-note-disclaimer{margin:12px 0 0!important;font-size:11px!important;color:#718198}
 @media(max-width:620px){.buyer-notes{padding:13px}.buyer-notes-grid{grid-template-columns:1fr;gap:9px}}
+
+.tool-range{width:100%;margin:9px 0 3px;accent-color:#1474b8;cursor:pointer}
+.panel label input[type=range]{padding:0;min-height:24px;border:0;background:transparent;box-shadow:none}
+.panel label input[type=range]:focus{outline:2px solid #8cc8f0;outline-offset:3px}
