@@ -357,3 +357,16 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
  .section#cars .heading{margin-bottom:18px}
  .section#cars .filters{margin:16px 0 10px}
 }
+
+
+/* Buyer-focused pros and pre-purchase checks */
+.buyer-notes{margin:22px 0;padding:18px;border:1px solid #dce7f2;border-radius:16px;background:#f6f9fd}
+.buyer-notes>h3{margin:0 0 14px;font-size:18px;color:#102544}
+.buyer-notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.buyer-notes-grid>div{padding:13px;border-radius:12px;background:#fff}
+.buyer-notes-grid h4{margin:0 0 9px;font-size:13px}
+.buyer-pros h4{color:#167448}.buyer-cons h4{color:#a65b14}
+.buyer-notes-grid ul{margin:0;padding-left:18px}
+.buyer-notes-grid li{margin:0 0 8px;font-size:13px;line-height:1.5;color:#43546b}
+.buyer-note-disclaimer{margin:12px 0 0!important;font-size:11px!important;color:#718198}
+@media(max-width:620px){.buyer-notes{padding:13px}.buyer-notes-grid{grid-template-columns:1fr;gap:9px}}
