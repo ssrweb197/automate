@@ -35,7 +35,7 @@ function openDetails(c){
 }
 $("carsGrid").addEventListener("click",e=>{
  const add=e.target.closest("[data-add]"),detail=e.target.closest("[data-detail]");
- if(add){const id=add.dataset.add;if(chosen.includes(id))chosen=chosen.filter(x=>x!==id);else if(chosen.length===3){toast("You can compare up to 3 cars.");return}else chosen.push(id);render();compare()}
+ if(add){const id=add.dataset.add;if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare()}else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();const section=$("compare");section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");section.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>section.classList.remove("compare-highlight"),1800)}}
  if(detail){const c=AUTO_CARS.find(x=>x.id===detail.dataset.detail);if(c)openDetails(c)}
 });
 ["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",render));
