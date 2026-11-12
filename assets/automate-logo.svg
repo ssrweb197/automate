@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" role="img" aria-labelledby="title desc">
+<title id="title">AutoMate</title><desc id="desc">Navy and red car-inspired AutoMate wordmark</desc>
+<path d="M82 87 106 45Q116 29 137 29h226q21 0 31 16l25 42M66 88h388l18 35q4 8-5 8H61q-9 0-5-8z" fill="none" stroke="#071b3b" stroke-width="10" stroke-linejoin="round"/>
+<path d="m120 78 17-31q4-7 13-7h185q9 0 13 7l18 31z" fill="#071b3b"/>
+<path d="M53 99Q260 -14 467 99" fill="none" stroke="#d41418" stroke-width="10" stroke-linecap="round"/>
+<path d="M92 112h54m228 0h54" stroke="#071b3b" stroke-width="8" stroke-linecap="round"/>
+<text x="260" y="169" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="61" font-weight="800" letter-spacing="-2"><tspan fill="#071b3b">Auto</tspan><tspan fill="#d41418">Mate</tspan></text>
+</svg>
