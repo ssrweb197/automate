@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://automate-india.netlify.app/sitemap.xml
