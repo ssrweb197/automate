@@ -36,10 +36,24 @@ function openDetails(c){
  if(select){select.addEventListener("change",update);update()}
  const esc=ev=>{if(ev.key==="Escape"){close();document.removeEventListener("keydown",esc)}};document.addEventListener("keydown",esc);
 }
-$("carsGrid").addEventListener("click",e=>{
- const add=e.target.closest("[data-add]"),detail=e.target.closest("[data-detail]");
- if(add){const id=add.dataset.add;if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare()}else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();scrollToComparison()}}
- if(detail){const c=AUTO_CARS.find(x=>x.id===detail.dataset.detail);if(c)openDetails(c)}
+document.addEventListener("click",e=>{
+ const target=e.target instanceof Element?e.target:null;
+ if(!target)return;
+ const detail=target.closest("[data-detail]");
+ if(detail){
+  e.preventDefault();
+  e.stopPropagation();
+  const c=AUTO_CARS.find(x=>x.id===detail.dataset.detail);
+  if(c){try{openDetails(c)}catch(err){console.error("AutoMate details modal error:",err);toast("Car details could not be opened. Please refresh and try again.")}}
+  return;
+ }
+ const add=target.closest("[data-add]");
+ if(add){
+  e.preventDefault();
+  const id=add.dataset.add;
+  if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare()}
+  else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();scrollToComparison()}
+ }
 });
 ["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",render));
 $("clear").onclick=()=>{chosen=[];render();compare()};
