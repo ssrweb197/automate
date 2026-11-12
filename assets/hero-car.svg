@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Blue premium SUV on a scenic mountain road at sunset">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#f5c6a5"/><stop offset=".48" stop-color="#f7dfc8"/><stop offset="1" stop-color="#b7d0df"/></linearGradient>
+ <linearGradient id="mount" x2="0" y2="1"><stop stop-color="#71899a"/><stop offset="1" stop-color="#334f62"/></linearGradient>
+ <linearGradient id="road" x2="0" y2="1"><stop stop-color="#53616b"/><stop offset="1" stop-color="#1d2934"/></linearGradient>
+ <linearGradient id="blue" x2=".15" y2="1"><stop stop-color="#70b8e8"/><stop offset=".42" stop-color="#1769aa"/><stop offset="1" stop-color="#082f55"/></linearGradient>
+ <linearGradient id="glass" x2="0" y2="1"><stop stop-color="#243b50"/><stop offset="1" stop-color="#091724"/></linearGradient>
+ <linearGradient id="shine" x2="1" y2="1"><stop stop-color="#d8f1ff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feGaussianBlur stdDeviation="18"/></filter>
+</defs>
+<rect width="1200" height="800" fill="url(#sky)"/>
+<circle cx="930" cy="170" r="86" fill="#fff0d8" opacity=".65"/>
+<path d="M0 410 140 270 235 350 390 205 540 370 690 235 820 355 1000 210 1200 390V610H0Z" fill="#a6bac5" opacity=".68"/>
+<path d="M0 470 160 335 280 420 450 300 610 450 790 320 940 445 1080 330 1200 420V650H0Z" fill="url(#mount)"/>
+<path d="M0 510Q180 430 330 490T650 475T950 465T1200 500V670H0Z" fill="#476c67"/>
+<path d="M0 590Q220 520 430 565T830 540T1200 560V800H0Z" fill="#345c52"/>
+<g opacity=".55" fill="#1e473f"><path d="m70 590 28-100 28 100zm75 8 22-80 24 80zm840-28 30-115 30 115zm85 20 22-82 22 82z"/></g>
+<path d="M0 650Q350 570 620 630T1200 625V800H0Z" fill="url(#road)"/>
+<path d="M0 710Q350 640 620 690T1200 685" fill="none" stroke="#d5dce0" stroke-width="5" opacity=".45"/>
+<path d="M540 800 600 690 622 690 685 800" fill="#f3e3b9" opacity=".55"/>
+<ellipse cx="615" cy="635" rx="390" ry="50" fill="#071a2b" opacity=".48" filter="url(#shadow)"/>
+<!-- SUV silhouette -->
+<path d="M235 550Q255 508 330 488L430 380Q470 338 550 330L755 330Q815 332 858 382L955 482Q1020 497 1052 540L1070 602Q1072 634 1035 645L254 645Q210 635 215 600Z" fill="url(#blue)" stroke="#082e4d" stroke-width="9"/>
+<path d="M385 474 466 383Q490 360 548 358L744 358Q785 360 815 397L885 475Z" fill="url(#glass)" stroke="#9dc7df" stroke-width="8"/>
+<path d="M575 360 565 473M748 362 795 473" stroke="#a5cbe0" stroke-width="7" opacity=".7"/>
+<path d="M290 520 390 497 883 497 1005 530" fill="none" stroke="#9bc9e6" stroke-width="8" opacity=".8"/>
+<path d="M240 564Q370 540 490 548T760 544T1048 566" fill="none" stroke="#d8efff" stroke-width="4" opacity=".35"/>
+<path d="M250 575 330 566 346 598 255 610Z" fill="#eaf7ff"/>
+<path d="M946 530 1030 545 1043 574 960 570Z" fill="#fff0c7"/>
+<path d="M960 536 1027 549" stroke="#fff" stroke-width="6"/>
+<path d="M215 605Q600 625 1070 603" stroke="#041d34" stroke-width="13" fill="none"/>
+<path d="M360 645 375 610 485 610 502 645M815 645 832 608 940 608 958 645" fill="#061c30"/>
+<g><circle cx="430" cy="632" r="76" fill="#111c27" stroke="#8795a1" stroke-width="10"/><circle cx="430" cy="632" r="43" fill="#aebbc4" stroke="#263b4d" stroke-width="9"/><circle cx="430" cy="632" r="15" fill="#42596b"/><path d="M430 590V674M388 632H472M400 602 460 662M460 602 400 662" stroke="#647987" stroke-width="7"/></g>
+<g><circle cx="870" cy="632" r="76" fill="#111c27" stroke="#8795a1" stroke-width="10"/><circle cx="870" cy="632" r="43" fill="#aebbc4" stroke="#263b4d" stroke-width="9"/><circle cx="870" cy="632" r="15" fill="#42596b"/><path d="M870 590V674M828 632H912M840 602 900 662M900 602 840 662" stroke="#647987" stroke-width="7"/></g>
+<path d="M475 382Q530 342 610 348" stroke="url(#shine)" stroke-width="12" fill="none"/>
+<path d="M335 492Q520 478 705 485" stroke="#c9eaff" stroke-width="5" opacity=".4" fill="none"/>
+<rect x="565" y="558" width="150" height="42" rx="6" fill="#eaf0f4" stroke="#9eabb5" stroke-width="3"/><text x="640" y="586" font-family="Arial,sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#23384a">AUTOMATE</text>
+</svg>
