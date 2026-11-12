@@ -59,7 +59,7 @@ document.addEventListener("click",e=>{
 });
 ["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",render));
 $("clear").onclick=()=>{chosen=[];render();compare()};
-function scrollToComparison(){const section=$("compare");if(!section)return;section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");section.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>section.classList.remove("compare-highlight"),1800)}
+function scrollToComparison(){const section=$("compare");if(!section)return;section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");requestAnimationFrame(()=>{const top=section.getBoundingClientRect().top+window.scrollY-16;window.scrollTo({top:Math.max(0,top),behavior:"smooth"})});setTimeout(()=>section.classList.remove("compare-highlight"),1800)}
 $("compareNow").onclick=scrollToComparison;
 function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2200)}
 function emi(){const p=Math.max(0,+$("amount").value||0),annual=Math.max(0,Math.min(40,+$("rate").value||0)),r=annual/1200,n=(+$("years").value||1)*12,v=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),total=v*n;$("emi").textContent=rupees(v||0);$("yearLabel").textContent=$("years").value+" years";$("loanSummary").textContent="Total repayment: "+rupees(total)+" · Interest: "+rupees(total-p)}
