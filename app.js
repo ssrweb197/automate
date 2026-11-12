@@ -11,7 +11,9 @@ function render(){
  $("carsGrid").innerHTML=list.map(c=>'<article class="car"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
 }
 function compare(){
- const items=chosen.map(id=>AUTO_CARS.find(c=>c.id===id)).filter(Boolean);
+ const selectedIds=[...new Set(chosen)].slice(0,3);
+ const items=selectedIds.map(id=>AUTO_CARS.find(c=>c.id===id)).filter(Boolean);
+ chosen=items.map(c=>c.id);
  $("hint").textContent=items.length+" of 3 selected";
  const compareNow=$("compareNow");
  if(compareNow){compareNow.hidden=items.length===0;compareNow.textContent=items.length?"View comparison ("+items.length+"/3)":"Compare now";}
@@ -20,7 +22,7 @@ function compare(){
  const chips='<div class="selected-cars" aria-label="Selected cars">'+items.map((c,i)=>'<span class="selected-car"><b>'+safe(c.make+" "+c.model)+'</b><small>Selected '+(i+1)+'</small></span>').join("")+'</div>';
  const rows=[["Selected variant",c=>selectedVariant(c)?.name||"—"],["Variant engine / motor",c=>selectedVariant(c)?.engine||c.engine],["Variant fuel",c=>selectedVariant(c)?.fuel||c.fuel],["Variant transmission",c=>selectedVariant(c)?.transmission||c.transmission],["Market",c=>c.market],["Body type",c=>c.type],["Powertrain range",c=>c.power],["Seats",c=>c.seats],["Mileage / range",c=>c.mileage],["Safety",c=>c.safety],["Dimensions",c=>c.dimensions],["Boot space",c=>c.boot],["Indicative model price",c=>c.price]];
  $("comparison").className="";
- $("comparison").innerHTML=chips+'<div class="tablewrap"><table class="comparetable"><thead><tr><th>DETAIL</th>'+items.map(c=>"<th>"+safe(c.make+" "+c.model)+"</th>").join("")+'</tr></thead><tbody>'+rows.map(r=>"<tr><td>"+r[0]+"</td>"+items.map(c=>"<td>"+safe(r[1](c))+"</td>").join("")+"</tr>").join("")+'</tbody></table></div>';
+ $("comparison").innerHTML=chips+'<p class="compare-swipe-note">Swipe horizontally to view all selected cars →</p>'+'<div class="tablewrap"><table class="comparetable"><thead><tr><th>DETAIL</th>'+items.map(c=>"<th>"+safe(c.make+" "+c.model)+"</th>").join("")+'</tr></thead><tbody>'+rows.map(r=>"<tr><td>"+r[0]+"</td>"+items.map(c=>"<td>"+safe(r[1](c))+"</td>").join("")+"</tr>").join("")+'</tbody></table></div>';
 }
 function openDetails(c){
  const variants=c.variants||[];
@@ -53,13 +55,13 @@ document.addEventListener("click",e=>{
  if(add){
   e.preventDefault();
   const id=add.dataset.add;
-  if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare();scrollToComparison()}
-  else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();scrollToComparison()}
+  if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare();requestAnimationFrame(()=>scrollToComparison())}
+  else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();requestAnimationFrame(()=>scrollToComparison())}
  }
 });
 ["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",render));
 $("clear").onclick=()=>{chosen=[];render();compare()};
-function scrollToComparison(){const section=$("compare");if(!section)return;section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");requestAnimationFrame(()=>{const top=section.getBoundingClientRect().top+window.scrollY-16;window.scrollTo({top:Math.max(0,top),behavior:"smooth"})});setTimeout(()=>section.classList.remove("compare-highlight"),1800)}
+function scrollToComparison(){const section=$("compare");if(!section)return;section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");requestAnimationFrame(()=>requestAnimationFrame(()=>{const top=section.getBoundingClientRect().top+window.scrollY-88;window.scrollTo({top:Math.max(0,top),behavior:"smooth"})}));setTimeout(()=>section.classList.remove("compare-highlight"),1800)}
 $("compareNow").onclick=scrollToComparison;
 function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2200)}
 function emi(){const p=Math.max(0,+$("amount").value||0),annual=Math.max(0,Math.min(40,+$("rate").value||0)),r=annual/1200,n=(+$("years").value||1)*12,v=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),total=v*n;$("emi").textContent=rupees(v||0);$("yearLabel").textContent=$("years").value+" years";$("loanSummary").textContent="Total repayment: "+rupees(total)+" · Interest: "+rupees(total-p)}
