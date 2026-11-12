@@ -2,12 +2,13 @@ const $=id=>document.getElementById(id);
 let chosen=[];
 const rupees=n=>"₹"+Math.round(Number.isFinite(n)?n:0).toLocaleString("en-IN");
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const variantState={};
 function render(){
  const q=$("search").value.toLowerCase().trim(),m=$("market").value,t=$("body").value,f=$("fuel").value,sort=$("sort").value;
  let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f));
  if(sort==="name") list.sort((a,b)=>(a.make+" "+a.model).localeCompare(b.make+" "+b.model));
  $("count").textContent="Showing "+list.length+" of "+AUTO_CARS.length+" cars";
- $("carsGrid").innerHTML=list.map(c=>'<article class="car"><img loading="lazy" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+' photo" onerror="this.onerror=null;this.src=\'assets/car-placeholder.svg\';"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
+ $("carsGrid").innerHTML=list.map(c=>'<article class="car"><img loading="lazy" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+' photo" onerror="this.onerror=null;this.src=\'assets/car-placeholder.svg\';"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
 }
 function compare(){
  const items=chosen.map(id=>AUTO_CARS.find(c=>c.id===id)).filter(Boolean);
@@ -17,10 +18,24 @@ function compare(){
  const rows=[["Market",c=>c.market],["Body type",c=>c.type],["Powertrain",c=>c.power],["Engine",c=>c.engine],["Transmission",c=>c.transmission],["Seats",c=>c.seats],["Mileage / range",c=>c.mileage],["Safety",c=>c.safety],["Dimensions",c=>c.dimensions],["Boot space",c=>c.boot],["Indicative price",c=>c.price]];
  $("comparison").innerHTML='<div class="tablewrap"><table class="comparetable"><thead><tr><th>DETAIL</th>'+items.map(c=>"<th>"+safe(c.make+" "+c.model)+"</th>").join("")+'</tr></thead><tbody>'+rows.map(r=>"<tr><td>"+r[0]+"</td>"+items.map(c=>"<td>"+safe(r[1](c))+"</td>").join("")+"</tr>").join("")+'</tbody></table></div>';
 }
+function openDetails(c){
+ const variants=c.variants||[];
+ const selected=variantState[c.id]||0;
+ const v=variants[selected]||null;
+ const box=document.createElement("div");box.className="modalbg";
+ const variantOptions=variants.map((x,i)=>'<option value="'+i+'" '+(i===selected?"selected":"")+'>'+safe(x.name)+'</option>').join("");
+ box.innerHTML='<article class="modal" role="dialog" aria-modal="true" aria-label="Car details and variants"><button aria-label="Close">×</button><small class="eyebrow">'+safe(c.market)+' · '+safe(c.type)+'</small><h2>'+safe(c.make+" "+c.model)+'</h2><h3 class="modalprice">'+safe(c.price)+'</h3><p>'+safe(c.summary)+'</p>'+(variants.length?'<section class="variant-picker"><label for="variant-'+safe(c.id)+'">CHOOSE A VARIANT</label><select id="variant-'+safe(c.id)+'">'+variantOptions+'</select><div class="variant-info" id="variant-info"></div></section>':'')+'<ul><li>Powertrain: '+safe(c.power)+'</li><li>Engine: '+safe(c.engine)+'</li><li>Transmission: '+safe(c.transmission)+'</li><li>Seats: '+safe(c.seats)+'</li><li>Mileage / range: '+safe(c.mileage)+'</li><li>Safety: '+safe(c.safety)+'</li><li>Dimensions: '+safe(c.dimensions)+'</li><li>Boot: '+safe(c.boot)+'</li></ul><p>Variant names and powertrain combinations are indicative trim families. Exact availability, equipment and prices differ by model year and country; confirm with the manufacturer or authorised dealer.</p><p class="attribution">Image: '+safe(c.imageCredit)+' · <a href="'+safe(c.source)+'" target="_blank" rel="noopener">View photographer &amp; licence details ↗</a></p><p class="attribution"><a href="'+safe(c.priceSource)+'" target="_blank" rel="noopener">Check manufacturer price and variant details ↗</a></p></article>';
+ document.body.append(box);
+ const close=()=>box.remove();box.querySelector("button").onclick=close;box.onclick=e=>{if(e.target===box)close()};
+ const select=box.querySelector("#variant-"+c.id);
+ const update=()=>{const item=variants[Number(select.value)];variantState[c.id]=Number(select.value);const info=box.querySelector("#variant-info");if(item)info.innerHTML='<b>'+safe(item.name)+'</b><dl><dt>Engine / motor</dt><dd>'+safe(item.engine)+'</dd><dt>Fuel</dt><dd>'+safe(item.fuel)+'</dd><dt>Transmission</dt><dd>'+safe(item.transmission)+'</dd><dt>Variant price</dt><dd>'+safe(item.priceLabel)+'</dd></dl>'};
+ if(select){select.addEventListener("change",update);update()}
+ const esc=ev=>{if(ev.key==="Escape"){close();document.removeEventListener("keydown",esc)}};document.addEventListener("keydown",esc);
+}
 $("carsGrid").addEventListener("click",e=>{
  const add=e.target.closest("[data-add]"),detail=e.target.closest("[data-detail]");
  if(add){const id=add.dataset.add;if(chosen.includes(id))chosen=chosen.filter(x=>x!==id);else if(chosen.length===3){toast("You can compare up to 3 cars.");return}else chosen.push(id);render();compare()}
- if(detail){const c=AUTO_CARS.find(x=>x.id===detail.dataset.detail),box=document.createElement("div");box.className="modalbg";box.innerHTML='<article class="modal" role="dialog" aria-modal="true" aria-label="Car details"><button aria-label="Close">×</button><small class="eyebrow">'+safe(c.market)+' · '+safe(c.type)+'</small><h2>'+safe(c.make+" "+c.model)+'</h2><h3 class="modalprice">'+safe(c.price)+'</h3><p>'+safe(c.summary)+'</p><ul><li>Powertrain: '+safe(c.power)+'</li><li>Engine: '+safe(c.engine)+'</li><li>Transmission: '+safe(c.transmission)+'</li><li>Seats: '+safe(c.seats)+'</li><li>Mileage / range: '+safe(c.mileage)+'</li><li>Safety: '+safe(c.safety)+'</li><li>Dimensions: '+safe(c.dimensions)+'</li><li>Boot: '+safe(c.boot)+'</li></ul><p>Always verify the exact variant, model year, local price and specifications before making a purchase.</p><p class="attribution">Image: '+safe(c.imageCredit)+' · <a href="'+safe(c.source)+'" target="_blank" rel="noopener">View photographer &amp; licence details ↗</a></p><p class="attribution"><a href="'+safe(c.priceSource)+'" target="_blank" rel="noopener">Check latest price and variant details ↗</a></p></article>';document.body.append(box);const close=()=>box.remove();box.querySelector("button").onclick=close;box.onclick=e=>{if(e.target===box)close()};document.addEventListener("keydown",function esc(ev){if(ev.key==="Escape"){close();document.removeEventListener("keydown",esc)}})}
+ if(detail){const c=AUTO_CARS.find(x=>x.id===detail.dataset.detail);if(c)openDetails(c)}
 });
 ["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",render));
 $("clear").onclick=()=>{chosen=[];render();compare()};
