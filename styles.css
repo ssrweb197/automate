@@ -116,3 +116,18 @@ footer p,footer small{color:#718096}
 @media(max-width:620px){
   .hero-visual{background-position:center center !important;}
 }
+
+
+/* Use the supplied realistic hero photograph crop, including its matching badge and caption */
+.hero-visual{
+  background: url("assets/hero-car-real.jpg") center center / cover no-repeat !important;
+}
+.hero-visual .visual-caption,
+.hero-visual .visual-tag,
+.hero-visual .visual-orbit,
+.hero-visual .visual-monogram{
+  display:none !important;
+}
+@media(max-width:620px){
+  .hero-visual{background-position:center center !important;}
+}
