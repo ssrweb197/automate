@@ -91,3 +91,17 @@ footer p,footer small{color:#718096}
 .visual-caption h2{font:700 24px Manrope;color:#17263b;margin:5px 0}
 .visual-tag{position:absolute;right:20px;top:20px;padding:9px 12px;border-radius:20px;background:#1769aa;color:#fff;font-size:9px;letter-spacing:1px}
 @media(max-width:620px){.hero-visual{height:260px;width:100%}.visual-monogram{font-size:84px}.visual-orbit{width:210px;height:210px}.visual-caption{left:12px;bottom:12px;padding:10px 13px}.visual-caption h2{font-size:19px}.visual-tag{right:12px;top:12px}}
+
+
+/* AutoMate hero artwork */
+.hero-visual{
+ background-image:linear-gradient(180deg,rgba(8,25,42,.02),rgba(8,25,42,.12)),url("assets/hero-car.svg");
+ background-size:cover;
+ background-position:center 55%;
+}
+.visual-orbit,.visual-monogram{display:none}
+.visual-caption{z-index:1}
+.visual-tag{z-index:1}
+@media(max-width:620px){
+ .hero-visual{background-position:center center}
+}
