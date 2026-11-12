@@ -322,3 +322,5 @@ footer{background:#071b38}
  .comparison-title h2{font-size:28px}
  .hero .stats span{flex:1 1 100%}
 }
+
+.compare-variant-label{font-size:10px;color:#1769aa;font-weight:700;margin-top:7px}.compare-variant-select{width:100%;max-width:220px;padding:9px 10px;border:1px solid #b9d5eb;border-radius:8px;background:#fff;color:#17263b;font:600 12px "DM Sans",sans-serif}.comparetable td{min-width:120px}.comparetable td:first-child{min-width:150px}
