@@ -104,3 +104,10 @@ footer p,footer small{color:#718096}
   .hero-visual{background-position:center center !important}
   .car-photo{height:190px}
 }
+
+/* Comparison selection visibility */
+.selected-cars{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 20px}
+.selected-car{display:flex;flex-direction:column;gap:4px;padding:12px 16px;background:#edf5fc;border:1px solid #cfe2f3;border-radius:10px;color:#17263b;min-width:140px}
+.selected-car b{font-size:13px}
+.selected-car small{font-size:10px;color:#1769aa}
+.compare-highlight .panel{outline:3px solid rgba(23,105,170,.22);box-shadow:0 0 0 7px rgba(23,105,170,.07),0 12px 30px rgba(24,48,80,.08)}
