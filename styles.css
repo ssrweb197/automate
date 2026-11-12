@@ -80,3 +80,14 @@ footer p,footer small{color:#718096}
 .variant-info dd{color:#26384d}
 .compare-now{background:#1769aa;color:#fff;border:1px solid #1769aa;border-radius:7px}
 @media(max-width:620px){header{position:sticky}#nav{position:absolute;top:calc(100% + 8px);left:auto;right:5%;width:min(230px,90vw);padding:8px 12px;gap:0;background:#fff;border:1px solid #e0e7ef;border-radius:12px;box-shadow:0 12px 28px rgba(24,48,80,.14)}#nav a{display:block;padding:13px 10px;border-bottom:1px solid #edf1f5;font-size:13px}#nav a:last-child{border-bottom:0}.footlinks{position:static;width:100%;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:row;flex-wrap:wrap;gap:18px}.footlinks a{display:inline-block;padding:0;border:0;font-size:10px}.hero{padding-top:42px}.section{background:#f5f8fc}}
+
+/* Image-free AutoMate hero */
+.hero-visual{height:410px;position:relative;overflow:hidden;border:1px solid #d7e5f2;border-radius:20px;background:radial-gradient(circle at 72% 28%,#dceefa 0,transparent 34%),linear-gradient(145deg,#ffffff,#e8f2fb);box-shadow:0 18px 45px rgba(24,48,80,.10);display:grid;place-items:center}
+.visual-orbit{position:absolute;width:310px;height:310px;border:1px solid #a9c9e3;border-radius:50%;box-shadow:0 0 0 34px rgba(23,105,170,.035),0 0 0 70px rgba(23,105,170,.025)}
+.visual-monogram{position:relative;font:800 112px/1 Manrope;letter-spacing:-12px;color:#1769aa;text-shadow:0 10px 25px rgba(23,105,170,.12)}
+.visual-monogram span{color:#9bbbd6}
+.visual-caption{position:absolute;left:25px;bottom:22px;background:rgba(255,255,255,.94);border:1px solid #dce7f1;border-radius:12px;padding:14px 18px;box-shadow:0 10px 25px rgba(24,48,80,.08)}
+.visual-caption small,.visual-caption span{font-size:9px;letter-spacing:1px;color:#64748b}
+.visual-caption h2{font:700 24px Manrope;color:#17263b;margin:5px 0}
+.visual-tag{position:absolute;right:20px;top:20px;padding:9px 12px;border-radius:20px;background:#1769aa;color:#fff;font-size:9px;letter-spacing:1px}
+@media(max-width:620px){.hero-visual{height:260px;width:100%}.visual-monogram{font-size:84px}.visual-orbit{width:210px;height:210px}.visual-caption{left:12px;bottom:12px;padding:10px 13px}.visual-caption h2{font-size:19px}.visual-tag{right:12px;top:12px}}
