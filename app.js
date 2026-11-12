@@ -51,7 +51,7 @@ document.addEventListener("click",e=>{
  if(add){
   e.preventDefault();
   const id=add.dataset.add;
-  if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare()}
+  if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare();scrollToComparison()}
   else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();scrollToComparison()}
  }
 });
