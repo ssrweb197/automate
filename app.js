@@ -13,11 +13,14 @@ function render(){
 function compare(){
  const items=chosen.map(id=>AUTO_CARS.find(c=>c.id===id)).filter(Boolean);
  $("hint").textContent=items.length+" of 3 selected";
+ const compareNow=$("compareNow");
+ if(compareNow){compareNow.hidden=items.length===0;compareNow.textContent=items.length?"View comparison ("+items.length+"/3)":"Compare now";}
  if(!items.length){$("comparison").className="empty";$("comparison").textContent="Your shortlist will appear here. Select “Add to compare” on any car card.";return}
- $("comparison").className="";
  const selectedVariant=c=>c.variants?.[variantState[c.id]||0]||null;
+ const chips='<div class="selected-cars" aria-label="Selected cars">'+items.map((c,i)=>'<span class="selected-car"><b>'+safe(c.make+" "+c.model)+'</b><small>Selected '+(i+1)+'</small></span>').join("")+'</div>';
  const rows=[["Selected variant",c=>selectedVariant(c)?.name||"—"],["Variant engine / motor",c=>selectedVariant(c)?.engine||c.engine],["Variant fuel",c=>selectedVariant(c)?.fuel||c.fuel],["Variant transmission",c=>selectedVariant(c)?.transmission||c.transmission],["Market",c=>c.market],["Body type",c=>c.type],["Powertrain range",c=>c.power],["Seats",c=>c.seats],["Mileage / range",c=>c.mileage],["Safety",c=>c.safety],["Dimensions",c=>c.dimensions],["Boot space",c=>c.boot],["Indicative model price",c=>c.price]];
- $("comparison").innerHTML='<div class="tablewrap"><table class="comparetable"><thead><tr><th>DETAIL</th>'+items.map(c=>"<th>"+safe(c.make+" "+c.model)+"</th>").join("")+'</tr></thead><tbody>'+rows.map(r=>"<tr><td>"+r[0]+"</td>"+items.map(c=>"<td>"+safe(r[1](c))+"</td>").join("")+"</tr>").join("")+'</tbody></table></div>';
+ $("comparison").className="";
+ $("comparison").innerHTML=chips+'<div class="tablewrap"><table class="comparetable"><thead><tr><th>DETAIL</th>'+items.map(c=>"<th>"+safe(c.make+" "+c.model)+"</th>").join("")+'</tr></thead><tbody>'+rows.map(r=>"<tr><td>"+r[0]+"</td>"+items.map(c=>"<td>"+safe(r[1](c))+"</td>").join("")+"</tr>").join("")+'</tbody></table></div>';
 }
 function openDetails(c){
  const variants=c.variants||[];
@@ -35,11 +38,13 @@ function openDetails(c){
 }
 $("carsGrid").addEventListener("click",e=>{
  const add=e.target.closest("[data-add]"),detail=e.target.closest("[data-detail]");
- if(add){const id=add.dataset.add;if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare()}else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();const section=$("compare");section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");section.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>section.classList.remove("compare-highlight"),1800)}}
+ if(add){const id=add.dataset.add;if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare()}else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();scrollToComparison()}}
  if(detail){const c=AUTO_CARS.find(x=>x.id===detail.dataset.detail);if(c)openDetails(c)}
 });
 ["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",render));
 $("clear").onclick=()=>{chosen=[];render();compare()};
+function scrollToComparison(){const section=$("compare");if(!section)return;section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");section.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>section.classList.remove("compare-highlight"),1800)}
+$("compareNow").onclick=scrollToComparison;
 function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2200)}
 function emi(){const p=Math.max(0,+$("amount").value||0),annual=Math.max(0,Math.min(40,+$("rate").value||0)),r=annual/1200,n=(+$("years").value||1)*12,v=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),total=v*n;$("emi").textContent=rupees(v||0);$("yearLabel").textContent=$("years").value+" years";$("loanSummary").textContent="Total repayment: "+rupees(total)+" · Interest: "+rupees(total-p)}
 function fuelCost(){const d=Math.max(0,+$("distance").value||0),e=Math.max(.1,+$("efficiency").value||.1),p=Math.max(0,+$("price").value||0),units=d/e,cost=units*p;$("fuelCost").textContent=rupees(cost);$("fuelSummary").textContent=units.toFixed(1)+" litres / kWh estimated per month"}
