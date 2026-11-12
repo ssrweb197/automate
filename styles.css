@@ -216,3 +216,41 @@ footer p,footer small{color:#718096}
  .comparison-banner-copy h2{font-size:19px}
  .comparison-banner-copy p{font-size:9px}
 }
+
+
+/* Mobile homepage readability and image hierarchy */
+@media(max-width:760px){
+  .hero{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    gap:22px !important;
+    padding:28px 5% 34px !important;
+    min-height:0 !important;
+  }
+  .hero>div:first-child{order:0;width:100%}
+  .hero-visual{order:-1;width:100%;height:245px;min-height:245px;margin:0 0 4px}
+  .hero-visual>img{width:100%;height:100%;min-height:245px;object-fit:cover;object-position:center}
+  .hero h1{
+    color:#071b3b !important;
+    font-size:clamp(36px,10vw,48px) !important;
+    line-height:1.08 !important;
+    letter-spacing:-1.5px !important;
+    margin:12px 0 !important;
+  }
+  .hero p{color:#53647c !important;font-size:14px !important}
+  .hero .eyebrow{color:#1769aa !important}
+  .hero .button{background:#d41418 !important;color:#fff !important;margin:14px 12px 20px 0 !important}
+  .hero .link{color:#174b83 !important}
+  .hero .stats{gap:12px !important;flex-wrap:wrap}
+  .hero .stats span{flex:1 1 28%;padding-left:9px}
+  .hero .stats b{color:#17263b}
+  .hero .stats small{color:#667891}
+  .comparison-banner{margin:0 4% 28px !important;min-height:0 !important}
+  .comparison-banner>img{height:190px !important;object-fit:cover !important;object-position:center !important}
+}
+@media(max-width:420px){
+  .hero-visual,.hero-visual>img{height:220px;min-height:220px}
+  .hero .stats span{flex:1 1 100%}
+  .comparison-banner>img{height:165px !important}
+}
