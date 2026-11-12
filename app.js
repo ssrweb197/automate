@@ -3,6 +3,26 @@ let chosen=[];
 const rupees=n=>"₹"+Math.round(Number.isFinite(n)?n:0).toLocaleString("en-IN");
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const variantState={};
+const SHORTLIST_KEY="automate-shortlist-v1";
+function restoreShortlist(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(SHORTLIST_KEY)||"null");
+  if(!saved||!Array.isArray(saved.cars))return;
+  const validIds=new Set(AUTO_CARS.map(c=>c.id));
+  chosen=[...new Set(saved.cars.filter(id=>validIds.has(id)))].slice(0,3);
+  if(saved.variants&&typeof saved.variants==="object"){
+   chosen.forEach(id=>{
+    const car=AUTO_CARS.find(c=>c.id===id),index=Number(saved.variants[id]);
+    if(car&&Number.isInteger(index)&&index>=0&&index<(car.variants||[]).length)variantState[id]=index;
+   });
+  }
+ }catch(error){console.warn("AutoMate shortlist could not be restored:",error)}
+}
+function saveShortlist(){
+ try{localStorage.setItem(SHORTLIST_KEY,JSON.stringify({cars:chosen,variants:variantState,savedAt:Date.now()}))}
+ catch(error){console.warn("AutoMate shortlist could not be saved:",error)}
+}
+restoreShortlist();
 function render(){
  const q=$("search").value.toLowerCase().trim(),m=$("market").value,t=$("body").value,f=$("fuel").value,sort=$("sort").value;
  let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f));
@@ -14,6 +34,7 @@ function compare(){
  const selectedIds=[...new Set(chosen)].slice(0,3);
  const items=selectedIds.map(id=>AUTO_CARS.find(c=>c.id===id)).filter(Boolean);
  chosen=items.map(c=>c.id);
+ saveShortlist();
  $("hint").textContent=items.length+" of 3 selected";
  const compareNow=$("compareNow");
  if(compareNow){compareNow.hidden=items.length===0;compareNow.textContent=items.length?"View comparison ("+items.length+"/3)":"Compare now";}
