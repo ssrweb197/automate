@@ -15,7 +15,8 @@ function compare(){
  $("hint").textContent=items.length+" of 3 selected";
  if(!items.length){$("comparison").className="empty";$("comparison").textContent="Your shortlist will appear here. Select “Add to compare” on any car card.";return}
  $("comparison").className="";
- const rows=[["Market",c=>c.market],["Body type",c=>c.type],["Powertrain",c=>c.power],["Engine",c=>c.engine],["Transmission",c=>c.transmission],["Seats",c=>c.seats],["Mileage / range",c=>c.mileage],["Safety",c=>c.safety],["Dimensions",c=>c.dimensions],["Boot space",c=>c.boot],["Indicative price",c=>c.price]];
+ const selectedVariant=c=>c.variants?.[variantState[c.id]||0]||null;
+ const rows=[["Selected variant",c=>selectedVariant(c)?.name||"—"],["Variant engine / motor",c=>selectedVariant(c)?.engine||c.engine],["Variant fuel",c=>selectedVariant(c)?.fuel||c.fuel],["Variant transmission",c=>selectedVariant(c)?.transmission||c.transmission],["Market",c=>c.market],["Body type",c=>c.type],["Powertrain range",c=>c.power],["Seats",c=>c.seats],["Mileage / range",c=>c.mileage],["Safety",c=>c.safety],["Dimensions",c=>c.dimensions],["Boot space",c=>c.boot],["Indicative model price",c=>c.price]];
  $("comparison").innerHTML='<div class="tablewrap"><table class="comparetable"><thead><tr><th>DETAIL</th>'+items.map(c=>"<th>"+safe(c.make+" "+c.model)+"</th>").join("")+'</tr></thead><tbody>'+rows.map(r=>"<tr><td>"+r[0]+"</td>"+items.map(c=>"<td>"+safe(r[1](c))+"</td>").join("")+"</tr>").join("")+'</tbody></table></div>';
 }
 function openDetails(c){
