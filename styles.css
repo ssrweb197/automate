@@ -3,3 +3,80 @@
 .variant-picker{margin:20px 0;padding:16px;background:#0b111c;border:1px solid var(--line)}.variant-picker label{display:block;color:var(--gold);font-size:10px;letter-spacing:1.5px;margin-bottom:9px}.variant-picker select{width:100%;padding:12px;background:var(--panel);color:var(--text);border:1px solid var(--line);font:12px "DM Sans"}.variant-info{margin-top:13px;font-size:11px;color:#c1cad7}.variant-info>b{display:block;color:var(--gold);font:700 16px Manrope;margin-bottom:10px}.variant-info dl{display:grid;grid-template-columns:110px 1fr;gap:7px;margin:0}.variant-info dt{color:#8190a4}.variant-info dd{margin:0;color:#e1e7ef;line-height:1.5}
 
 .compare-actions{display:flex;align-items:center;gap:12px}.compare-now{background:var(--gold);color:#111;border:1px solid var(--gold);padding:10px 16px;font-weight:700;cursor:pointer}.compare-now[hidden]{display:none}.compare-now:hover{filter:brightness(1.08)}@media(max-width:620px){.compare-actions{gap:8px}.compare-now{padding:9px 11px;font-size:10px}}
+
+
+/* AutoMate premium light-blue refresh */
+:root{color-scheme:light;--bg:#f5f8fc;--panel:#ffffff;--line:#dce5f0;--text:#17263b;--muted:#64748b;--gold:#1769aa}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--text)}
+header{background:rgba(255,255,255,.94);border-bottom:1px solid #e3eaf2;box-shadow:0 4px 18px rgba(24,48,80,.05)}
+.brand{color:#17263b}.brand b{border-color:#1769aa;color:#1769aa;border-radius:9px}.brand span{color:#1769aa}
+nav a,.link{color:#52647b}nav a:hover,.link:hover{color:#1769aa}
+.cta{border:1px solid #1769aa;color:#1769aa;border-radius:7px}
+#menu{color:#17263b}
+.eyebrow{color:#1769aa}
+.hero h1 em,.heading em,.closing em{color:#1769aa}
+.hero p,.heading p,.closing p{color:#64748b}
+.button{background:#1769aa;color:#fff;border-radius:7px;box-shadow:0 8px 18px rgba(23,105,170,.16)}
+.button:hover{background:#10588f}
+.outline{background:#fff;color:#1769aa;border:1px solid #1769aa}
+.heroimg img{filter:none;border-radius:18px;clip-path:none;box-shadow:0 18px 45px rgba(24,48,80,.16)}
+.float{background:rgba(255,255,255,.96);border:1px solid #e1e8f0;border-radius:12px;box-shadow:0 12px 30px rgba(24,48,80,.12);color:#64748b}
+.float h2{color:#17263b}
+.markets{border-color:#e1e8f0;color:#64748b;background:#fff}
+.markets b{color:#1769aa}
+.section{background:#f5f8fc}
+.alt{background:#edf3f9;border-block:1px solid #e0e8f1}
+.heading>small{color:#8090a5}
+.filters input,.filters select,.panel input{background:#fff;border:1px solid #d6e0eb;color:#17263b;border-radius:7px;outline-color:#1769aa}
+.filters input:focus,.filters select:focus,.panel input:focus{border-color:#1769aa;box-shadow:0 0 0 3px rgba(23,105,170,.1)}
+.results{color:#64748b}
+.car{background:#fff;border:1px solid #e0e7ef;border-radius:13px;overflow:hidden;box-shadow:0 5px 18px rgba(24,48,80,.045);transition:transform .2s,box-shadow .2s}
+.car:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(24,48,80,.1)}
+.car img{filter:none;background:#edf2f7}
+.meta{color:#718096}
+.car h3{color:#17263b}
+.price{color:#1769aa}
+.car p{color:#64748b}
+.specs{border-color:#e7edf4;color:#64748b}
+.actions button{border-radius:6px}
+.actions .details{background:#fff;color:#1769aa;border-color:#cbd8e6!important}
+.actions .add{background:#1769aa;color:#fff;border-color:#1769aa}
+.actions .add.selected{background:#e4f4eb;color:#17603a;border-color:#a8d8bc}
+.panel{background:#fff;border:1px solid #e0e7ef;border-radius:13px;box-shadow:0 5px 18px rgba(24,48,80,.04)}
+.panelhead button{color:#1769aa}
+#hint{color:#64748b}
+.empty{color:#64748b}
+.comparetable td,.comparetable th{border-color:#e6edf4}
+.comparetable th{color:#1769aa}
+.comparetable td:first-child{color:#64748b}
+.panel label{color:#52647b}
+.panel input[type=range]{accent-color:#1769aa}
+.result{background:#edf5fc;border:1px solid #d8e8f6;border-radius:9px;color:#52647b}
+.result strong{color:#1769aa}
+.note{color:#718096}
+.guides article{background:#fff;border:1px solid #e0e7ef;border-radius:12px;box-shadow:0 5px 18px rgba(24,48,80,.04)}
+.guides small,.guides a{color:#1769aa}
+.guides h3{color:#17263b}
+.guides p{color:#64748b}
+.closing{background:linear-gradient(120deg,#e6f1fb,#f5f9fd);border:1px solid #d4e4f2;border-radius:16px}
+footer{border-color:#e1e8f0;background:#fff}
+footer p,footer small{color:#718096}
+.footlinks a{color:#52647b}
+#toast{background:#1769aa;color:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(23,105,170,.2)}
+.modalbg{background:rgba(18,35,55,.48);backdrop-filter:blur(4px)}
+.modal{background:#fff;border:1px solid #dce5f0;border-radius:15px;box-shadow:0 24px 70px rgba(16,35,58,.22)}
+.modal button{color:#17263b}
+.modal p,.modal li{color:#52647b}
+.modalprice{color:#1769aa}
+.attribution{color:#718096!important}
+.attribution a{color:#1769aa}
+.variant-picker{background:#f1f6fb;border:1px solid #dce7f1;border-radius:10px}
+.variant-picker label{color:#1769aa}
+.variant-picker select{background:#fff;color:#17263b;border:1px solid #d6e0eb;border-radius:7px}
+.variant-info{color:#52647b}
+.variant-info>b{color:#1769aa}
+.variant-info dt{color:#718096}
+.variant-info dd{color:#26384d}
+.compare-now{background:#1769aa;color:#fff;border:1px solid #1769aa;border-radius:7px}
+@media(max-width:620px){nav{background:#fff;box-shadow:0 12px 20px rgba(24,48,80,.08)}.hero{padding-top:42px}.section{background:#f5f8fc}}
