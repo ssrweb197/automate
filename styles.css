@@ -131,3 +131,14 @@ footer p,footer small{color:#718096}
 @media(max-width:620px){
   .hero-visual{background-position:center center !important;}
 }
+
+
+/* Replace the incorrectly encoded local image with a direct high-resolution vehicle photo */
+.hero-visual{
+  background-image:linear-gradient(180deg,rgba(8,25,42,.02),rgba(8,25,42,.08)),url("https://onecms.1cdn.vn/assets/car/hyundai-creta-2025.png") !important;
+  background-size:cover !important;
+  background-position:center 58% !important;
+}
+@media(max-width:620px){
+  .hero-visual{background-position:center center !important;}
+}
