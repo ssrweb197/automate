@@ -402,3 +402,22 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
     object-fit:contain !important;
   }
 }
+
+
+/* Buyer guide navigation and contextual internal links */
+.article-breadcrumbs{max-width:980px;margin:0 auto 26px;padding:0 0 14px;display:flex;flex-wrap:wrap;gap:9px;align-items:center;color:#718198;font-size:13px;line-height:1.6}
+.article-breadcrumbs a{color:#1976c9;text-decoration:none;font-weight:600}
+.article-breadcrumbs a:hover,.all-guides-link a:hover{text-decoration:underline}
+.article-breadcrumbs [aria-current="page"]{color:#52647b}
+.related-guides{margin:42px 0 28px;padding:28px;background:#fff;border:1px solid #dce6f2;border-radius:22px;box-shadow:0 12px 30px rgba(10,30,61,.045)}
+.related-guides-heading h2{margin:8px 0;color:#0a1e3d;font:800 clamp(24px,3vw,32px)/1.2 Manrope,sans-serif}
+.related-guides-heading p{margin:0 0 22px;color:#61738c;line-height:1.7}
+.related-guides-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.related-guide-card{display:flex;flex-direction:column;gap:12px;min-height:150px;padding:18px;border:1px solid #e2eaf4;border-radius:16px;text-decoration:none;background:#f9fbfe;transition:transform .18s ease,border-color .18s ease}
+.related-guide-card:hover{transform:translateY(-2px);border-color:#8bb9e8}
+.related-guide-card span{font-size:10px;letter-spacing:1.3px;color:#1976c9;font-weight:700}
+.related-guide-card strong{color:#102747;font-size:16px;line-height:1.4}
+.related-guide-card em{margin-top:auto;color:#1976c9;font-size:13px;font-style:normal;font-weight:700}
+.all-guides-link{margin:20px 0 0}
+.all-guides-link a{color:#1976c9;font-weight:700;text-decoration:none}
+@media(max-width:700px){.article-breadcrumbs{padding:0 2px 12px;font-size:12px}.related-guides{padding:20px 16px;margin:32px 0 22px}.related-guides-grid{grid-template-columns:1fr}.related-guide-card{min-height:unset}}
