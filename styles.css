@@ -424,3 +424,15 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
 .all-guides-link{margin:20px 0 0}
 .all-guides-link a{color:#1976c9;font-weight:700;text-decoration:none}
 @media(max-width:700px){.article-breadcrumbs{padding:0 2px 12px;font-size:12px}.related-guides{padding:20px 16px;margin:32px 0 22px}.related-guides-grid{grid-template-columns:1fr}.related-guide-card{min-height:unset}}
+
+/* UX refinements: car image cards, validation and touch-friendly controls */
+.car-photo{display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:cover;object-position:center;background:#edf2f7}
+.field-validation{display:block;min-height:0;margin-top:5px;color:#b42318;font-size:12px;line-height:1.4}
+.panel input[aria-invalid="true"]{border-color:#c93636!important;box-shadow:0 0 0 2px rgba(201,54,54,.10)!important}
+.actions button,.compare-actions button,.panel button,.button,.cta{min-height:48px}
+@media(max-width:620px){
+ .actions button{min-height:48px!important;padding:10px 8px!important;font-size:11px!important}
+ .filters input,.filters select{min-height:46px}
+ .panel input:not([type=range]){min-height:46px}
+ .car-photo{aspect-ratio:16/9}
+}
