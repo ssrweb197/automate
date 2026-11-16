@@ -28,7 +28,7 @@ function render(){
  let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f));
  if(sort==="name") list.sort((a,b)=>(a.make+" "+a.model).localeCompare(b.make+" "+b.model));
  $("count").textContent="Showing "+list.length+" of "+AUTO_CARS.length+" cars";
- $("carsGrid").innerHTML=list.map(c=>'<article class="car"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
+ $("carsGrid").innerHTML=list.map(c=>'<article class="car"><img class="car-photo" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+'" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'assets/car-placeholder.svg\'"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
 }
 function compare(){
  const selectedIds=[...new Set(chosen)].slice(0,3);
@@ -52,7 +52,7 @@ function openDetails(c){
  const v=variants[selected]||null;
  const box=document.createElement("div");box.className="modalbg";
  const variantOptions=variants.map((x,i)=>'<option value="'+i+'" '+(i===selected?"selected":"")+'>'+safe(x.name)+'</option>').join("");
- box.innerHTML='<article class="modal" role="dialog" aria-modal="true" aria-label="Car details and variants"><button aria-label="Close">×</button><img class="modal-car-photo" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+'" onerror="this.style.display=\'none\'"><div class="modal-content"><small class="eyebrow">'+safe(c.market)+' · '+safe(c.type)+'</small><h2>'+safe(c.make+" "+c.model)+'</h2><h3 class="modalprice">'+safe(c.price)+'</h3><p>'+safe(c.summary)+'</p>'+(variants.length?'<section class="variant-picker"><label for="variant-'+safe(c.id)+'">CHOOSE A VARIANT</label><select id="variant-'+safe(c.id)+'">'+variantOptions+'</select><div class="variant-info" id="variant-info"></div></section>':'')+'<ul><li>Powertrain: '+safe(c.power)+'</li><li>Engine: '+safe(c.engine)+'</li><li>Transmission: '+safe(c.transmission)+'</li><li>Seats: '+safe(c.seats)+'</li><li>Mileage / range: '+safe(c.mileage)+'</li><li>Safety: '+safe(c.safety)+'</li><li>Dimensions: '+safe(c.dimensions)+'</li><li>Boot: '+safe(c.boot)+'</li></ul>'+(c.buyerNotes?'<section class="buyer-notes"><h3>Buyer notes</h3><div class="buyer-notes-grid"><div class="buyer-pros"><h4>What buyers may like</h4><ul>'+c.buyerNotes.pros.map(x=>'<li>'+safe(x)+'</li>').join("")+'</ul></div><div class="buyer-cons"><h4>Check before buying</h4><ul>'+c.buyerNotes.cons.map(x=>'<li>'+safe(x)+'</li>').join("")+'</ul></div></div><p class="buyer-note-disclaimer">General research prompts, not owner reviews or verified test results. Confirm details for your exact model year and variant.</p></section>':'')+'<p>Variant names and powertrain combinations are indicative trim families. Exact availability, equipment and prices differ by model year and country; confirm with the manufacturer or authorised dealer.</p></div></article>';
+ box.innerHTML='<article class="modal" role="dialog" aria-modal="true" aria-label="Car details and variants"><button aria-label="Close">×</button><img class="modal-car-photo" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+'" onerror="this.onerror=null;this.src=\'assets/car-placeholder.svg\'"><div class="modal-content"><small class="eyebrow">'+safe(c.market)+' · '+safe(c.type)+'</small><h2>'+safe(c.make+" "+c.model)+'</h2><h3 class="modalprice">'+safe(c.price)+'</h3><p>'+safe(c.summary)+'</p>'+(variants.length?'<section class="variant-picker"><label for="variant-'+safe(c.id)+'">CHOOSE A VARIANT</label><select id="variant-'+safe(c.id)+'">'+variantOptions+'</select><div class="variant-info" id="variant-info"></div></section>':'')+'<ul><li>Powertrain: '+safe(c.power)+'</li><li>Engine: '+safe(c.engine)+'</li><li>Transmission: '+safe(c.transmission)+'</li><li>Seats: '+safe(c.seats)+'</li><li>Mileage / range: '+safe(c.mileage)+'</li><li>Safety: '+safe(c.safety)+'</li><li>Dimensions: '+safe(c.dimensions)+'</li><li>Boot: '+safe(c.boot)+'</li></ul>'+(c.buyerNotes?'<section class="buyer-notes"><h3>Buyer notes</h3><div class="buyer-notes-grid"><div class="buyer-pros"><h4>What buyers may like</h4><ul>'+c.buyerNotes.pros.map(x=>'<li>'+safe(x)+'</li>').join("")+'</ul></div><div class="buyer-cons"><h4>Check before buying</h4><ul>'+c.buyerNotes.cons.map(x=>'<li>'+safe(x)+'</li>').join("")+'</ul></div></div><p class="buyer-note-disclaimer">General research prompts, not owner reviews or verified test results. Confirm details for your exact model year and variant.</p></section>':'')+'<p>Variant names and powertrain combinations are indicative trim families. Exact availability, equipment and prices differ by model year and country; confirm with the manufacturer or authorised dealer.</p></div></article>';
  document.body.append(box);
  const select=box.querySelector("#variant-"+c.id);
  const esc=ev=>{if(ev.key==="Escape")close()};
@@ -77,8 +77,8 @@ document.addEventListener("click",e=>{
  if(add){
   e.preventDefault();
   const id=add.dataset.add;
-  if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare();requestAnimationFrame(()=>scrollToComparison())}
-  else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();requestAnimationFrame(()=>scrollToComparison())}
+  if(chosen.includes(id)){chosen=chosen.filter(x=>x!==id);render();compare();toast("Removed from your comparison.");requestAnimationFrame(()=>scrollToComparison())}
+  else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();toast("Added to your comparison.");requestAnimationFrame(()=>scrollToComparison())}
  }
 });
 ["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",render));
@@ -86,9 +86,29 @@ $("clear").onclick=()=>{chosen=[];render();compare()};
 function scrollToComparison(){const section=$("compare");if(!section)return;section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");requestAnimationFrame(()=>requestAnimationFrame(()=>{const top=section.getBoundingClientRect().top+window.scrollY-88;window.scrollTo({top:Math.max(0,top),behavior:"smooth"})}));setTimeout(()=>section.classList.remove("compare-highlight"),1800)}
 $("compareNow").onclick=scrollToComparison;
 function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2200)}
-function emi(){const p=Math.max(0,+$("amount").value||0),annual=Math.max(0,Math.min(40,+$("rate").value||0)),r=annual/1200,n=(+$("years").value||1)*12,v=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),total=v*n;$("emi").textContent=rupees(v||0);$("yearLabel").textContent=$("years").value+" years";$("loanSummary").textContent="Total repayment: "+rupees(total)+" · Interest: "+rupees(total-p)}
-function fuelCost(){const d=Math.max(0,+$("distance").value||0),e=Math.max(.1,+$("efficiency").value||.1),p=Math.max(0,+$("price").value||0),units=d/e,cost=units*p;$("fuelCost").textContent=rupees(cost);$("fuelSummary").textContent=units.toFixed(1)+" litres / kWh estimated per month"}
-function onRoad(){const p=Math.max(0,+$("exPrice").value||0),tax=Math.max(0,Math.min(40,+$("taxRate").value||0))/100,other=Math.max(0,+$("otherCost").value||0);$("onRoad").textContent=rupees(p+p*tax+other)}
+function emi(){if(!fieldsValid(["amount","rate"])){ $("emi").textContent="Check inputs";$("loanSummary").textContent="Enter valid loan amount and interest rate.";return}const p=Math.max(0,+$("amount").value||0),annual=Math.max(0,Math.min(40,+$("rate").value||0)),r=annual/1200,n=(+$("years").value||1)*12,v=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),total=v*n;$("emi").textContent=rupees(v||0);$("yearLabel").textContent=$("years").value+" years";$("loanSummary").textContent="Total repayment: "+rupees(total)+" · Interest: "+rupees(total-p)}
+function fuelCost(){if(!fieldsValid(["distance","efficiency","price"])){ $("fuelCost").textContent="Check inputs";$("fuelSummary").textContent="Enter valid distance, efficiency and price.";return}const d=Math.max(0,+$("distance").value||0),e=Math.max(.1,+$("efficiency").value||.1),p=Math.max(0,+$("price").value||0),units=d/e,cost=units*p;$("fuelCost").textContent=rupees(cost);$("fuelSummary").textContent=units.toFixed(1)+" litres / kWh estimated per month"}
+function onRoad(){if(!fieldsValid(["exPrice","taxRate","otherCost"])){ $("onRoad").textContent="Check inputs";return}const p=Math.max(0,+$("exPrice").value||0),tax=Math.max(0,Math.min(40,+$("taxRate").value||0))/100,other=Math.max(0,+$("otherCost").value||0);$("onRoad").textContent=rupees(p+p*tax+other)}
+
+function validateNumberField(id){
+ const input=$(id);if(!input||input.type!=="number")return true;
+ let message="";const value=input.valueAsNumber;
+ if(input.value.trim()==="")message="Please enter a value.";
+ else if(!Number.isFinite(value))message="Enter a valid number.";
+ else if(input.min!==""&&value<Number(input.min))message="Minimum value is "+input.min+".";
+ else if(input.max!==""&&value>Number(input.max))message="Maximum value is "+input.max+".";
+ input.setAttribute("aria-invalid",String(Boolean(message)));
+ let note=document.getElementById(id+"-validation");
+ if(!note){note=document.createElement("small");note.id=id+"-validation";note.className="field-validation";note.setAttribute("aria-live","polite");input.insertAdjacentElement("afterend",note)}
+ note.textContent=message;return !message;
+}
+function fieldsValid(ids){return ids.map(validateNumberField).every(Boolean)}
+["amount","rate","distance","efficiency","price","exPrice","taxRate","otherCost"].forEach(id=>{
+ const input=$(id);if(!input)return;
+ input.addEventListener("input",()=>validateNumberField(id));
+ input.addEventListener("blur",()=>validateNumberField(id));
+});
+
 function linkRange(numberId,rangeId){
  const number=$(numberId),range=$(rangeId);
  number.addEventListener("input",()=>{range.value=String(Math.max(+range.min,Math.min(+range.max,+number.value||0)));});
