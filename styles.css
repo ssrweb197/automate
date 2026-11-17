@@ -436,3 +436,30 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
  .panel input:not([type=range]){min-height:46px}
  .car-photo{aspect-ratio:16/9}
 }
+
+
+/* Car listing pagination */
+.cars-pagination{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  padding:24px 0 8px;
+  color:#52647b;
+  font-size:13px;
+}
+.cars-pagination button{
+  min-height:42px;
+  padding:10px 17px;
+  border:1px solid #1769aa;
+  border-radius:7px;
+  background:#1769aa;
+  color:#fff;
+  font:600 13px "DM Sans",sans-serif;
+  cursor:pointer;
+}
+.cars-pagination button:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
+.cars-pagination span{font-weight:600}
