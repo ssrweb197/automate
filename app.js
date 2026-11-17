@@ -22,7 +22,7 @@ function saveShortlist(){
  try{localStorage.setItem(SHORTLIST_KEY,JSON.stringify({cars:chosen,variants:variantState,savedAt:Date.now()}))}
  catch(error){console.warn("AutoMate shortlist could not be saved:",error)}
 }
-restoreShortlist();
+// Start with an empty shortlist; cars appear only after the visitor opens Explore Cars.
 function render(){
  const q=$("search").value.toLowerCase().trim(),m=$("market").value,t=$("body").value,f=$("fuel").value,sort=$("sort").value;
  let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f));
@@ -139,4 +139,12 @@ document.addEventListener("click",event=>{
  if(!siteNav.contains(event.target)&&!menuButton.contains(event.target))closeSiteNav();
 });
 document.addEventListener("keydown",event=>{if(event.key==="Escape")closeSiteNav()});
+function revealCars(){
+ const section=$("cars");
+ if(!section)return;
+ section.classList.add("cars-revealed");
+ render();
+}
+document.querySelectorAll('a[href="#cars"]').forEach(link=>link.addEventListener("click",revealCars));
+if(location.hash==="#cars")revealCars();
 $("year").textContent=new Date().getFullYear();render();compare();emi();fuelCost();onRoad();
