@@ -46,7 +46,7 @@ function compare(){
  $("hint").textContent=items.length+" of 3 selected";
  const compareNow=$("compareNow");
  if(compareNow){compareNow.hidden=items.length===0;compareNow.textContent=items.length?"View comparison ("+items.length+"/3)":"Compare now";}
- if(!items.length){$("comparison").className="empty";$("comparison").textContent="Your shortlist will appear here. Select “Add to compare” on any car card.";return}
+ if(!items.length){$("comparison").className="empty compare-empty";$("comparison").innerHTML='<p>Your comparison is ready. First choose a car from Explore Cars.</p><button type="button" class="button" data-go-explore>Choose cars to compare →</button>';return}
  const selectedVariant=c=>c.variants?.[variantState[c.id]||0]||null;
  const chips='<div class="selected-cars" aria-label="Selected cars">'+items.map((c,i)=>{const opts=(c.variants||[]).map((v,j)=>'<option value="'+j+'" '+(j===(variantState[c.id]||0)?"selected":"")+' >'+safe(v.name)+'</option>').join("");return '<span class="selected-car"><b>'+safe(c.make+" "+c.model)+'</b><small>Selected '+(i+1)+'</small>'+(opts?'<label class="compare-variant-label" for="compare-variant-'+safe(c.id)+'">Choose variant</label><select class="compare-variant-select" id="compare-variant-'+safe(c.id)+'" data-compare-variant="'+safe(c.id)+'">'+opts+'</select>':'<small>Variant details unavailable</small>')+'</span>'}).join("")+'</div>';
  const rows=[["Selected variant",c=>selectedVariant(c)?.name||"—"],["Variant engine / motor",c=>selectedVariant(c)?.engine||c.engine],["Variant fuel",c=>selectedVariant(c)?.fuel||c.fuel],["Variant transmission",c=>selectedVariant(c)?.transmission||c.transmission],["Variant price",c=>{const v=selectedVariant(c);return v?.price?rupees(v.price):(v?.priceLabel||"Not available") }],["Market",c=>c.market],["Body type",c=>c.type],["Powertrain range",c=>c.power],["Seats",c=>c.seats],["Mileage / range",c=>c.mileage],["Safety",c=>c.safety],["Dimensions",c=>c.dimensions],["Boot space",c=>c.boot],["Indicative model price",c=>c.price]];
@@ -73,6 +73,8 @@ function openDetails(c){
 document.addEventListener("click",e=>{
  const target=e.target instanceof Element?e.target:null;
  if(!target)return;
+ const goExplore=target.closest("[data-go-explore]");
+ if(goExplore){e.preventDefault();revealCars();const section=$("cars");if(section){const top=section.getBoundingClientRect().top+window.scrollY-82;window.scrollTo({top:Math.max(0,top),behavior:"smooth"});}setTimeout(()=>$("search")?.focus({preventScroll:true}),450);return;}
  const detail=target.closest("[data-detail]");
  if(detail){
   e.preventDefault();
@@ -156,4 +158,5 @@ function revealCars(){
 }
 document.querySelectorAll('a[href="#cars"]').forEach(link=>link.addEventListener("click",revealCars));
 if(location.hash==="#cars")revealCars();
+restoreShortlist();
 $("year").textContent=new Date().getFullYear();render();compare();emi();fuelCost();onRoad();
