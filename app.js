@@ -28,7 +28,7 @@ function render(){
  let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f));
  if(sort==="name") list.sort((a,b)=>(a.make+" "+a.model).localeCompare(b.make+" "+b.model));
  const visibleCars=list;
- $("count").textContent=list.length ? "Showing "+(start+1)+"–"+Math.min(start+CARS_PER_PAGE,list.length)+" of "+list.length+" matching cars" : "No cars found";
+ $("count").textContent=list.length ? "Showing all "+list.length+" matching cars" : "No cars found";
  $("carsGrid").innerHTML=visibleCars.map(c=>'<article class="car"><img class="car-photo" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+'" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'assets/car-placeholder.svg\'"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
 
 }
