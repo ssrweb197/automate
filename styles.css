@@ -436,3 +436,44 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
  .panel input:not([type=range]){min-height:46px}
  .car-photo{aspect-ratio:16/9}
 }
+
+
+/* Mobile comparison table: keep specification labels visible while cars scroll */
+.tablewrap{
+  position:relative;
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+.comparetable{
+  border-collapse:separate;
+  border-spacing:0;
+  min-width:620px;
+}
+.comparetable th:first-child,
+.comparetable td:first-child{
+  position:sticky;
+  left:0;
+  z-index:2;
+  min-width:138px;
+  background:#fff;
+  box-shadow:2px 0 7px rgba(24,48,80,.07);
+}
+.comparetable th:first-child{z-index:3}
+.comparetable td:first-child{
+  white-space:normal;
+  font-weight:600;
+  color:#52647b;
+}
+.comparetable th,
+.comparetable td{line-height:1.55;overflow-wrap:anywhere}
+@media(max-width:620px){
+  .tablewrap{margin-inline:-2px;width:calc(100% + 4px)}
+  .comparetable{min-width:590px}
+  .comparetable th,.comparetable td{padding:13px 11px;font-size:12px}
+  .comparetable th:first-child,.comparetable td:first-child{min-width:132px;max-width:132px}
+}
