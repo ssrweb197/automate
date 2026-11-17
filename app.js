@@ -122,6 +122,21 @@ linkRange("distance","distanceRange");
 ["amount","rate","years"].forEach(id=>$(id).addEventListener("input",emi));
 ["distance","efficiency","price"].forEach(id=>$(id).addEventListener("input",fuelCost));
 ["exPrice","taxRate","otherCost"].forEach(id=>$(id).addEventListener("input",onRoad));
-$("menu").onclick=()=>{const open=$("nav").classList.toggle("open");$("menu").setAttribute("aria-expanded",String(open))};
-document.querySelectorAll("#nav a").forEach(a=>a.onclick=()=>{$("nav").classList.remove("open");$("menu").setAttribute("aria-expanded","false")});
+const menuButton=$("menu"),siteNav=$("nav");
+function closeSiteNav(){
+ siteNav.classList.remove("open");
+ menuButton.setAttribute("aria-expanded","false");
+ menuButton.setAttribute("aria-label","Open navigation");
+}
+menuButton.onclick=()=>{
+ const open=siteNav.classList.toggle("open");
+ menuButton.setAttribute("aria-expanded",String(open));
+ menuButton.setAttribute("aria-label",open?"Close navigation":"Open navigation");
+};
+siteNav.querySelectorAll("a").forEach(link=>link.addEventListener("click",closeSiteNav));
+document.addEventListener("click",event=>{
+ if(!siteNav.classList.contains("open"))return;
+ if(!siteNav.contains(event.target)&&!menuButton.contains(event.target))closeSiteNav();
+});
+document.addEventListener("keydown",event=>{if(event.key==="Escape")closeSiteNav()});
 $("year").textContent=new Date().getFullYear();render();compare();emi();fuelCost();onRoad();
