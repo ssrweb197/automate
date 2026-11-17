@@ -532,3 +532,8 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
 #cars.cars-revealed .results,
 #cars.cars-revealed #carsGrid{display:flex}
 #cars.cars-revealed #carsGrid{display:grid}
+
+
+/* Compare is a specification-only view: never show car photos in this section. */
+#compare #comparison img,
+#compare .selected-car img{display:none!important}
