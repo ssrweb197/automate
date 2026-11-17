@@ -1,5 +1,7 @@
 const $=id=>document.getElementById(id);
 let chosen=[];
+let currentCarPage=1;
+const CARS_PER_PAGE=6;
 const rupees=n=>"₹"+Math.round(Number.isFinite(n)?n:0).toLocaleString("en-IN");
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const variantState={};
@@ -27,8 +29,16 @@ function render(){
  const q=$("search").value.toLowerCase().trim(),m=$("market").value,t=$("body").value,f=$("fuel").value,sort=$("sort").value;
  let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f));
  if(sort==="name") list.sort((a,b)=>(a.make+" "+a.model).localeCompare(b.make+" "+b.model));
- $("count").textContent="Showing "+list.length+" of "+AUTO_CARS.length+" cars";
- $("carsGrid").innerHTML=list.map(c=>'<article class="car"><img class="car-photo" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+'" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'assets/car-placeholder.svg\'"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
+ const totalPages=Math.max(1,Math.ceil(list.length/CARS_PER_PAGE));
+ currentCarPage=Math.min(currentCarPage,totalPages);
+ const start=(currentCarPage-1)*CARS_PER_PAGE;
+ const visibleCars=list.slice(start,start+CARS_PER_PAGE);
+ $("count").textContent=list.length ? "Showing "+(start+1)+"–"+Math.min(start+CARS_PER_PAGE,list.length)+" of "+list.length+" matching cars" : "No cars found";
+ $("carsGrid").innerHTML=visibleCars.map(c=>'<article class="car"><img class="car-photo" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+'" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'assets/car-placeholder.svg\'"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
+ let pagination=$("carsPagination");
+ if(!pagination){pagination=document.createElement("nav");pagination.id="carsPagination";pagination.className="cars-pagination";pagination.setAttribute("aria-label","Car listing pages");$("carsGrid").insertAdjacentElement("afterend",pagination)}
+ pagination.innerHTML=totalPages>1 ? '<button type="button" data-car-page="prev" '+(currentCarPage===1?"disabled":"")+">← Previous</button><span>Page "+currentCarPage+" of "+totalPages+"</span><button type=\"button\" data-car-page=\"next\" "+(currentCarPage===totalPages?"disabled":"")+">Next →</button>" : (list.length ? "<span>All "+list.length+" matching cars</span>" : "");
+ pagination.querySelectorAll("[data-car-page]").forEach(button=>button.addEventListener("click",()=>{currentCarPage=button.dataset.carPage==="next"?Math.min(totalPages,currentCarPage+1):Math.max(1,currentCarPage-1);render();const section=$("cars");if(section){const top=section.getBoundingClientRect().top+window.scrollY-76;window.scrollTo({top:Math.max(0,top),behavior:"smooth"})}}));
 }
 function compare(){
  const selectedIds=[...new Set(chosen)].slice(0,3);
@@ -81,7 +91,7 @@ document.addEventListener("click",e=>{
   else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();toast("Added to your comparison.");requestAnimationFrame(()=>scrollToComparison())}
  }
 });
-["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",render));
+["search","market","body","fuel","sort"].forEach(id=>$(id).addEventListener("input",()=>{currentCarPage=1;render()}));
 $("clear").onclick=()=>{chosen=[];render();compare()};
 function scrollToComparison(){const section=$("compare");if(!section)return;section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");requestAnimationFrame(()=>requestAnimationFrame(()=>{const top=section.getBoundingClientRect().top+window.scrollY-88;window.scrollTo({top:Math.max(0,top),behavior:"smooth"})}));setTimeout(()=>section.classList.remove("compare-highlight"),1800)}
 $("compareNow").onclick=scrollToComparison;
