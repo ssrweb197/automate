@@ -521,3 +521,14 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
   #carsPagination{max-width:100%;gap:10px!important;margin-top:16px!important}
   #carsPagination button{min-height:40px;padding:9px 13px}
 }
+
+
+/* Keep the vehicle catalogue closed until the visitor chooses Explore Cars. */
+#cars:not(.cars-revealed) .filters,
+#cars:not(.cars-revealed) .results,
+#cars:not(.cars-revealed) #carsGrid,
+#cars:not(.cars-revealed) > .note{display:none!important}
+#cars.cars-revealed .filters,
+#cars.cars-revealed .results,
+#cars.cars-revealed #carsGrid{display:flex}
+#cars.cars-revealed #carsGrid{display:grid}
