@@ -484,3 +484,40 @@ header{height:62px!important;min-height:62px;padding:0 5%!important}
 .cars-pagination button{min-height:42px;padding:10px 17px;border:1px solid #1769aa;border-radius:7px;background:#1769aa;color:#fff;font:600 13px "DM Sans",sans-serif;cursor:pointer}
 .cars-pagination button:disabled{opacity:.4;cursor:not-allowed}
 .cars-pagination span{font-weight:600}
+
+
+/* Fix car pagination placement and prevent it from covering the homepage hero. */
+#carsPagination{
+  position:static!important;
+  inset:auto!important;
+  transform:none!important;
+  display:flex!important;
+  width:100%;
+  max-width:360px;
+  margin:22px auto 0!important;
+  padding:0!important;
+  align-items:center;
+  justify-content:center;
+  gap:12px!important;
+  background:transparent!important;
+  color:#52647b!important;
+  box-shadow:none!important;
+  z-index:auto!important;
+  flex-direction:row!important;
+}
+#carsPagination button{
+  position:static!important;
+  min-height:42px;
+  padding:10px 16px;
+  border:1px solid #176fb1;
+  border-radius:9px;
+  background:#176fb1;
+  color:#fff;
+  font:700 13px "DM Sans",sans-serif;
+}
+#carsPagination button:disabled{opacity:.4;cursor:not-allowed}
+#carsPagination span{color:#52647b;font-size:13px;font-weight:700;white-space:nowrap}
+@media(max-width:620px){
+  #carsPagination{max-width:100%;gap:10px!important;margin-top:16px!important}
+  #carsPagination button{min-height:40px;padding:9px 13px}
+}
