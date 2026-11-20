@@ -587,3 +587,27 @@ main.article-page{
   .article-page>section:not(.related-guides) p{font-size:15.5px;line-height:1.7}
   .article-page>.related-guides{padding:20px 16px!important}
 }
+
+/* LET'S COMPARE — gentle road-like motion for both car photos */
+.comparison-photo{position:relative}
+.comparison-photo img{
+  transform:scale(1.16);
+  will-change:transform;
+}
+.comparison-photo-one img{
+  animation:automate-car-glide-left 12s ease-in-out infinite alternate;
+}
+.comparison-photo-two img{
+  animation:automate-car-glide-right 12s ease-in-out infinite alternate;
+}
+@keyframes automate-car-glide-left{
+  from{transform:scale(1.16) translateX(3%)}
+  to{transform:scale(1.16) translateX(-3%)}
+}
+@keyframes automate-car-glide-right{
+  from{transform:scale(1.16) translateX(-3%)}
+  to{transform:scale(1.16) translateX(3%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .comparison-photo img{animation:none;transform:scale(1.08);will-change:auto}
+}
