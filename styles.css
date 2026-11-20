@@ -617,9 +617,12 @@ main.article-page{
 .comparison-photo-two img{animation-duration:8s}
 
 
-/* Accurate headlight glow aligned to the two visible headlamps */
+
+/* Visible headlight flash overlay, positioned over the actual lamp lenses */
 .hero-visual.photo-hero{position:relative;overflow:hidden}
 .hero-visual.photo-hero>img{
+  position:relative;
+  z-index:0;
   transform-origin:center center;
   animation:automate-hero-car-cruise 7s ease-in-out infinite;
   will-change:transform;
@@ -628,19 +631,20 @@ main.article-page{
   content:"";
   position:absolute;
   inset:0;
-  z-index:1;
+  z-index:2;
   pointer-events:none;
   mix-blend-mode:screen;
   background:
-    radial-gradient(ellipse 6.5% 8% at 34% 52%,rgba(150,235,255,.95) 0%,rgba(45,170,255,.55) 38%,rgba(20,130,255,.16) 62%,transparent 82%),
-    radial-gradient(ellipse 6.5% 8% at 82% 52%,rgba(150,235,255,.95) 0%,rgba(45,170,255,.55) 38%,rgba(20,130,255,.16) 62%,transparent 82%);
+    radial-gradient(ellipse 8% 11% at 35% 54%,rgba(255,255,255,1) 0%,rgba(150,240,255,.98) 20%,rgba(30,170,255,.78) 48%,rgba(0,115,255,.28) 70%,transparent 100%),
+    radial-gradient(ellipse 8% 11% at 81% 54%,rgba(255,255,255,1) 0%,rgba(150,240,255,.98) 20%,rgba(30,170,255,.78) 48%,rgba(0,115,255,.28) 70%,transparent 100%);
   opacity:0;
-  animation:automate-headlights-switch 4s ease-in-out infinite;
+  animation:automate-headlights-blink 2.8s steps(1,end) infinite;
 }
-@keyframes automate-headlights-switch{
-  0%,18%,100%{opacity:0}
-  28%,66%{opacity:.9}
-  78%{opacity:.15}
+@keyframes automate-headlights-blink{
+  0%,12%,28%,100%{opacity:0}
+  13%,27%{opacity:1}
+  55%,72%{opacity:.95}
+  73%,99%{opacity:0}
 }
 @keyframes automate-hero-car-cruise{
   0%,100%{transform:scale(1.015) translateX(-3px)}
@@ -648,5 +652,5 @@ main.article-page{
 }
 @media(prefers-reduced-motion:reduce){
   .hero-visual.photo-hero>img{animation:none;transform:none;will-change:auto}
-  .hero-visual.photo-hero::after{animation:none;opacity:.25}
+  .hero-visual.photo-hero::after{animation:none;opacity:.35}
 }
