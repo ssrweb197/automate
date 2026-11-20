@@ -616,8 +616,14 @@ main.article-page{
 .comparison-photo-one img{animation-duration:8s}
 .comparison-photo-two img{animation-duration:8s}
 
-/* Soft blue headlight glow pulse on the main front-facing car photo */
+
+/* Accurate headlight glow aligned to the two visible headlamps */
 .hero-visual.photo-hero{position:relative;overflow:hidden}
+.hero-visual.photo-hero>img{
+  transform-origin:center center;
+  animation:automate-hero-car-cruise 7s ease-in-out infinite;
+  will-change:transform;
+}
 .hero-visual.photo-hero::after{
   content:"";
   position:absolute;
@@ -626,16 +632,21 @@ main.article-page{
   pointer-events:none;
   mix-blend-mode:screen;
   background:
-    radial-gradient(ellipse 10% 18% at 33% 72%,rgba(105,220,255,.9) 0%,rgba(40,155,255,.36) 42%,transparent 76%),
-    radial-gradient(ellipse 10% 18% at 68% 72%,rgba(105,220,255,.9) 0%,rgba(40,155,255,.36) 42%,transparent 76%);
-  opacity:.12;
-  animation:automate-headlights-pulse 3.2s ease-in-out infinite;
+    radial-gradient(ellipse 6.5% 8% at 34% 52%,rgba(150,235,255,.95) 0%,rgba(45,170,255,.55) 38%,rgba(20,130,255,.16) 62%,transparent 82%),
+    radial-gradient(ellipse 6.5% 8% at 82% 52%,rgba(150,235,255,.95) 0%,rgba(45,170,255,.55) 38%,rgba(20,130,255,.16) 62%,transparent 82%);
+  opacity:0;
+  animation:automate-headlights-switch 4s ease-in-out infinite;
 }
-@keyframes automate-headlights-pulse{
-  0%,100%{opacity:.10}
-  38%,58%{opacity:.95}
-  78%{opacity:.14}
+@keyframes automate-headlights-switch{
+  0%,18%,100%{opacity:0}
+  28%,66%{opacity:.9}
+  78%{opacity:.15}
+}
+@keyframes automate-hero-car-cruise{
+  0%,100%{transform:scale(1.015) translateX(-3px)}
+  50%{transform:scale(1.04) translateX(4px)}
 }
 @media(prefers-reduced-motion:reduce){
-  .hero-visual.photo-hero::after{animation:none;opacity:.35}
+  .hero-visual.photo-hero>img{animation:none;transform:none;will-change:auto}
+  .hero-visual.photo-hero::after{animation:none;opacity:.25}
 }
