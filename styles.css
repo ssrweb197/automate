@@ -742,3 +742,79 @@ main.article-page{
     font-size:11px;
   }
 }
+
+
+/* AutoMate car detail pages — Light Blue + White premium theme */
+.detail-main .detail-panel{
+  background:#eaf4ff!important;
+  border:1px solid #c8def3!important;
+  color:#17365d!important;
+  box-shadow:0 8px 24px rgba(23,54,93,.06);
+}
+.detail-main .detail-panel h2,
+.detail-main .buyer-grid h3{
+  color:#12345a!important;
+}
+.detail-main .spec{
+  background:#ffffff!important;
+  border:1px solid #d5e5f4!important;
+  border-radius:8px;
+}
+.detail-main .spec small{
+  color:#54708f!important;
+}
+.detail-main .spec b{
+  color:#173f70!important;
+}
+.detail-main .buyer-grid>div{
+  background:#ffffff!important;
+  border:1px solid #d5e5f4!important;
+  border-radius:8px;
+}
+.detail-main .buyer-grid li,
+.detail-main .detail-panel p{
+  color:#405a78!important;
+}
+.detail-main .detail-panel .disclaimer{
+  color:#617994!important;
+}
+.detail-main .variant-wrap{
+  background:#ffffff;
+  border:1px solid #d5e5f4;
+  border-radius:8px;
+  scrollbar-color:#8db9e2 #edf5fc;
+}
+.detail-main .variant-table{
+  background:#ffffff;
+}
+.detail-main .variant-table th{
+  color:#174f85!important;
+  background:#edf6ff;
+}
+.detail-main .variant-table td{
+  color:#294765!important;
+}
+.detail-main .variant-table th,
+.detail-main .variant-table td{
+  border-bottom:1px solid #d5e5f4!important;
+}
+.detail-main .variant-table tbody tr:nth-child(even){
+  background:#f3f8fe;
+}
+.detail-main .variant-table tbody tr:nth-child(odd){
+  background:#ffffff;
+}
+.detail-main .variant-table tbody th{
+  background:transparent;
+  color:#174f85!important;
+}
+.detail-main .variant-wrap::after{
+  color:#54708f!important;
+}
+.detail-main .detail-panel a{
+  color:#1769aa!important;
+}
+@media(max-width:700px){
+  .detail-main .detail-panel{padding:17px;background:#eaf4ff!important}
+  .detail-main .spec b{color:#173f70!important}
+}
