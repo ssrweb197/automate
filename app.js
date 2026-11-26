@@ -51,9 +51,27 @@ function startingPriceInRupees(car){
  const value=Number(match[1]);
  return value*(match[2].toLowerCase()==="crore"?10000000:100000);
 }
+function normaliseFilter(value){
+ return String(value??"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"");
+}
+function carMatchesFuel(car,selectedFuel){
+ if(selectedFuel==="all")return true;
+ const wanted=normaliseFilter(selectedFuel);
+ const values=[car.fuel,car.power,...(car.variants||[]).map(v=>v.fuel),...(car.variants||[]).map(v=>v.engine)];
+ return values.some(value=>normaliseFilter(value).includes(wanted));
+}
 function render(){
- const q=$("search").value.toLowerCase().trim(),m=$("market").value,t=$("body").value,f=$("fuel").value,sort=$("sort").value,brand=$("brand")?.value||"all";
- let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f)&&(brand==="all"||c.make===brand));
+ const q=($("search")?.value||"").toLowerCase().trim();
+ const m=$("market")?.value||"all",t=$("body")?.value||"all";
+ const f=$("fuel")?.value||"all",sort=$("sort")?.value||"featured";
+ const brand=$("brand")?.value||"all";
+ let list=AUTO_CARS.filter(c=>
+  (c.make+" "+c.model).toLowerCase().includes(q)&&
+  (m==="all"||normaliseFilter(c.market)===normaliseFilter(m))&&
+  (t==="all"||normaliseFilter(c.type)===normaliseFilter(t))&&
+  (brand==="all"||normaliseFilter(c.make)===normaliseFilter(brand))&&
+  carMatchesFuel(c,f)
+ );
  if(sort==="name")list.sort((a,b)=>(a.make+" "+a.model).localeCompare(b.make+" "+b.model));
  if(sort==="price-asc")list.sort((a,b)=>startingPriceInRupees(a)-startingPriceInRupees(b));
  if(sort==="price-desc")list.sort((a,b)=>startingPriceInRupees(b)-startingPriceInRupees(a));
