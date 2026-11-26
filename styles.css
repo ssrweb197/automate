@@ -661,3 +661,22 @@ main.article-page{
 #cars:not(.cars-revealed) .results{display:flex!important}
 #cars:not(.cars-revealed) #carsGrid{display:grid!important}
 #cars:not(.cars-revealed) > .note{display:block!important}
+
+
+
+/* AutoMate catalogue filters and accessible pagination */
+#cars .filters select,#cars .filters input{min-width:135px}
+#cars .filters #search{min-width:220px}
+#cars .cars-pagination{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto 4px;min-height:44px}
+#cars .cars-pagination:empty{display:none}
+#cars .cars-pagination button{border:1px solid #cbdced;border-radius:8px;background:#fff;color:#1769aa;padding:10px 16px;font:700 13px "DM Sans",sans-serif;cursor:pointer}
+#cars .cars-pagination button:disabled{opacity:.42;cursor:not-allowed}
+#cars .cars-pagination span{color:#52647b;font-size:13px;font-weight:700;white-space:nowrap}
+@media(max-width:620px){
+ #cars .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ #cars .filters #search{grid-column:1/-1;min-width:0;width:100%}
+ #cars .filters select{min-width:0;width:100%;font-size:12px}
+ #cars .cars-pagination{gap:9px}
+ #cars .cars-pagination button{padding:9px 11px;font-size:12px}
+ #cars .cars-pagination span{font-size:11px}
+}
