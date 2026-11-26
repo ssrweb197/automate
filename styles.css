@@ -654,3 +654,10 @@ main.article-page{
   .hero-visual.photo-hero>img{animation:none;transform:none;will-change:auto}
   .hero-visual.photo-hero::after{animation:none;opacity:.35}
 }
+
+
+/* AutoMate: keep the catalogue controls and cards visible on first page load. */
+#cars:not(.cars-revealed) .filters,
+#cars:not(.cars-revealed) .results{display:flex!important}
+#cars:not(.cars-revealed) #carsGrid{display:grid!important}
+#cars:not(.cars-revealed) > .note{display:block!important}
