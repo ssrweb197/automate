@@ -22,7 +22,7 @@ function saveShortlist(){
  try{localStorage.setItem(SHORTLIST_KEY,JSON.stringify({cars:chosen,variants:variantState,savedAt:Date.now()}))}
  catch(error){console.warn("AutoMate shortlist could not be saved:",error)}
 }
-// Start with an empty shortlist; cars appear only after the visitor opens Explore Cars.
+// Keep the shortlist empty on first visit; render the catalogue immediately.
 const CARS_PER_PAGE=6;
 let currentPage=1;
 function ensureCatalogueControls(){
@@ -46,7 +46,7 @@ function ensureCatalogueControls(){
  }
 }
 function startingPriceInRupees(car){
- const match=String(car.price||"").match(/([0-9]+(?:\\.[0-9]+)?)\\s*(lakh|crore)/i);
+ const match=String(car.price||"").match(/([0-9]+(?:\.[0-9]+)?)\s*(lakh|crore)/i);
  if(!match)return Number.POSITIVE_INFINITY;
  const value=Number(match[1]);
  return value*(match[2].toLowerCase()==="crore"?10000000:100000);
