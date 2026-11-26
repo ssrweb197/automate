@@ -818,3 +818,105 @@ main.article-page{
   .detail-main .detail-panel{padding:17px;background:#eaf4ff!important}
   .detail-main .spec b{color:#173f70!important}
 }
+
+
+/* AutoMate site-wide visual system — Light Blue + White + Navy */
+:root{
+  --bg:#f3f8fe;
+  --panel:#ffffff;
+  --line:#d7e5f3;
+  --text:#17365d;
+  --muted:#58718f;
+  --gold:#1769aa;
+}
+html,body{background:#f3f8fe!important;color:#17365d!important}
+body{color:#17365d!important}
+header{
+  background:rgba(255,255,255,.96)!important;
+  border-bottom:1px solid #d9e7f4!important;
+  box-shadow:0 3px 14px rgba(25,62,100,.05);
+}
+header nav a,header .link{color:#365675!important}
+header nav a:hover,header .link:hover{color:#1769aa!important}
+#menu{color:#17365d!important}
+.brand,header .brand{color:#17365d!important}
+.brand span{color:#1769aa!important}
+header .cta{border-color:#1769aa!important;color:#1769aa!important}
+.hero{background:linear-gradient(120deg,#f4f9ff 0%,#e6f2ff 100%)}
+.hero h1,.heading h2,.closing h2{color:#12345a!important}
+.hero em,.heading em,.closing em{color:#1769aa!important}
+.hero p,.heading p,.closing p{color:#58718f!important}
+.hero .stats b{color:#17365d!important}
+.hero .stats small{color:#58718f!important}
+.hero .stats span{border-color:#cbdced!important}
+.button{background:#1769aa!important;color:#fff!important}
+.button.outline{background:transparent!important;color:#1769aa!important;border-color:#1769aa!important}
+.markets{
+  background:#eaf4ff!important;
+  border-color:#d5e5f4!important;
+  color:#58718f!important;
+}
+.markets b{color:#174f85!important}
+.section{background:#f3f8fe!important}
+.section.alt{background:#eaf4ff!important;border-color:#d5e5f4!important}
+.heading>small{color:#68819c!important}
+.eyebrow{color:#1769aa!important}
+.filters input,.filters select,.panel input{
+  background:#fff!important;
+  border:1px solid #cbdced!important;
+  color:#17365d!important;
+}
+.filters input::placeholder,.panel input::placeholder{color:#7890aa!important}
+.results{color:#58718f!important}
+.car,.panel,.guides article{
+  background:#fff!important;
+  border:1px solid #d5e5f4!important;
+  box-shadow:0 6px 20px rgba(23,54,93,.045);
+}
+.car h3,.panel h3,.guides h3{color:#17365d!important}
+.car p,.panel label,.guides p{color:#58718f!important}
+.meta,.specs,.comparetable td:first-child{color:#58718f!important}
+.specs,.comparetable td,.comparetable th{border-color:#d5e5f4!important}
+.comparetable th{color:#1769aa!important}
+.comparetable td{color:#365675!important}
+.details{background:#fff!important;color:#1769aa!important;border-color:#b9d2e9!important}
+.add{background:#1769aa!important;color:#fff!important;border-color:#1769aa!important}
+.add.selected{background:#e0f2e8!important;color:#236344!important;border-color:#9bcdb0!important}
+.empty,.note,#hint{color:#58718f!important}
+.result{
+  background:#eaf4ff!important;
+  border:1px solid #cbdced!important;
+  color:#58718f!important;
+}
+.result strong{color:#1769aa!important}
+.guides article{
+  background:linear-gradient(145deg,#fff,#edf6ff)!important;
+}
+.guides small,.guides a{color:#1769aa!important}
+.closing{
+  background:#e5f2ff!important;
+  border:1px solid #cbdced!important;
+}
+footer{
+  background:#e4f1ff!important;
+  color:#365675!important;
+  border-top:1px solid #cbdced!important;
+}
+footer p,footer small,footer nav a{color:#58718f!important}
+footer .brand{color:#17365d!important}
+footer .brand span{color:#1769aa!important}
+.article-page>h1{color:#12345a!important}
+.article-page>p:first-of-type{color:#58718f!important}
+.article-page>section:not(.related-guides){
+  background:#fff!important;border-color:#d5e5f4!important;
+}
+.article-page>section:not(.related-guides) h2{color:#12345a!important}
+.article-page>section:not(.related-guides) p{color:#405a78!important}
+.article-page>.panel{background:#eaf4ff!important;color:#17365d!important}
+.article-page>.panel h2{color:#12345a!important}
+.article-page>.panel p{color:#405a78!important}
+@media(max-width:700px){
+  header{background:rgba(255,255,255,.98)!important}
+  .section{padding:58px 5%!important}
+  .hero{background:linear-gradient(150deg,#f4f9ff,#e6f2ff)!important}
+}
