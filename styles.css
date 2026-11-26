@@ -684,3 +684,61 @@ main.article-page{
 /* Dedicated detail-page links in catalogue cards */
 .actions a.details{display:flex;align-items:center;justify-content:center;flex:1;min-height:48px;padding:10px 8px;border:1px solid #cbd8e6;border-radius:6px;background:#fff;color:#1769aa;font-size:11px;font-weight:700;text-align:center;text-decoration:none;}
 .actions a.details:hover{background:#eef6fc;border-color:#1769aa;}
+
+
+/* AutoMate detail pages: restore strong contrast on dark panels. */
+.detail-main .detail-panel h2,
+.detail-main .buyer-grid h3{
+  color:#f3f6fb!important;
+}
+.detail-main .spec b,
+.detail-main .variant-table td,
+.detail-main .buyer-grid li{
+  color:#d5deea!important;
+}
+.detail-main .spec small{
+  color:#aebbd0!important;
+}
+.detail-main .variant-table th{
+  color:#f0c66e!important;
+}
+.detail-main .detail-panel{
+  color:#d5deea;
+}
+.detail-main .detail-panel p,
+.detail-main .detail-panel li{
+  color:#c3cedd;
+}
+.detail-main .disclaimer{
+  color:#aebbd0!important;
+}
+.detail-main .variant-wrap{
+  max-width:100%;
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:#64748b #182437;
+}
+.detail-main .variant-table{
+  min-width:760px;
+}
+.detail-main .variant-table th,
+.detail-main .variant-table td{
+  color:#d5deea;
+  line-height:1.55;
+}
+.detail-main .variant-table th{
+  color:#f0c66e;
+}
+@media(max-width:700px){
+  .detail-main .detail-panel h2{color:#f3f6fb!important}
+  .detail-main .spec b{font-size:14px;color:#e4ebf5!important}
+  .detail-main .variant-wrap::after{
+    content:"Swipe left or right to view all variant columns";
+    display:block;
+    padding:9px 2px 0;
+    color:#aebbd0;
+    font-size:11px;
+  }
+}
