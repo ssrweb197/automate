@@ -23,18 +23,62 @@ function saveShortlist(){
  catch(error){console.warn("AutoMate shortlist could not be saved:",error)}
 }
 // Start with an empty shortlist; cars appear only after the visitor opens Explore Cars.
-function render(){
- const q=$("search").value.toLowerCase().trim(),m=$("market").value,t=$("body").value,f=$("fuel").value,sort=$("sort").value;
- let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f));
- if(sort==="name") list.sort((a,b)=>(a.make+" "+a.model).localeCompare(b.make+" "+b.model));
- // Show the full catalogue on first load; search and filters narrow it down.
- const visibleCars=list;
- $("count").textContent=list.length
-  ? "Showing "+list.length+" matching cars"
-  : "No cars match your selection";
- $("carsGrid").innerHTML=visibleCars.map(c=>'<article class="car"><img class="car-photo" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+'" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'assets/car-placeholder.svg\'"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
-
+const CARS_PER_PAGE=6;
+let currentPage=1;
+function ensureCatalogueControls(){
+ const filters=document.querySelector(".filters");
+ if(!filters)return;
+ if(!$("brand")){
+  const brand=document.createElement("select");
+  brand.id="brand";brand.setAttribute("aria-label","Filter by brand");
+  brand.innerHTML='<option value="all">All brands</option>'+[...new Set(AUTO_CARS.map(c=>c.make))].sort().map(make=>'<option value="'+safe(make)+'">'+safe(make)+'</option>').join("");
+  filters.insertBefore(brand,$("market"));
+ }
+ const sort=$("sort");
+ if(sort&&!sort.querySelector('option[value="price-asc"]')){
+  sort.insertAdjacentHTML("beforeend",'<option value="price-asc">Price: Low to High</option><option value="price-desc">Price: High to Low</option>');
+ }
+ if(!$("carsPagination")){
+  const pager=document.createElement("nav");
+  pager.id="carsPagination";pager.className="cars-pagination";
+  pager.setAttribute("aria-label","Car catalogue pages");
+  $("carsGrid").insertAdjacentElement("afterend",pager);
+ }
 }
+function startingPriceInRupees(car){
+ const match=String(car.price||"").match(/([0-9]+(?:\\.[0-9]+)?)\\s*(lakh|crore)/i);
+ if(!match)return Number.POSITIVE_INFINITY;
+ const value=Number(match[1]);
+ return value*(match[2].toLowerCase()==="crore"?10000000:100000);
+}
+function render(){
+ const q=$("search").value.toLowerCase().trim(),m=$("market").value,t=$("body").value,f=$("fuel").value,sort=$("sort").value,brand=$("brand")?.value||"all";
+ let list=AUTO_CARS.filter(c=>(c.make+" "+c.model).toLowerCase().includes(q)&&(m==="all"||c.market===m)&&(t==="all"||c.type===t)&&(f==="all"||c.fuel===f)&&(brand==="all"||c.make===brand));
+ if(sort==="name")list.sort((a,b)=>(a.make+" "+a.model).localeCompare(b.make+" "+b.model));
+ if(sort==="price-asc")list.sort((a,b)=>startingPriceInRupees(a)-startingPriceInRupees(b));
+ if(sort==="price-desc")list.sort((a,b)=>startingPriceInRupees(b)-startingPriceInRupees(a));
+ const pageCount=Math.max(1,Math.ceil(list.length/CARS_PER_PAGE));
+ currentPage=Math.min(currentPage,pageCount);
+ const start=(currentPage-1)*CARS_PER_PAGE;
+ const visibleCars=list.slice(start,start+CARS_PER_PAGE);
+ $("count").textContent=list.length
+  ? "Showing "+(start+1)+"–"+Math.min(start+CARS_PER_PAGE,list.length)+" of "+list.length+" matching cars"
+  : "No cars match your selection";
+ $("carsGrid").innerHTML=visibleCars.map(c=>'<article class="car"><img class="car-photo" src="'+safe(c.image)+'" alt="'+safe(c.make+" "+c.model)+'" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\\'assets/car-placeholder.svg\\'"><div class="carbody"><div class="meta"><span>'+safe(c.make)+'</span><span>'+safe(c.market)+' · '+safe(c.type)+'</span></div><h3>'+safe(c.model)+'</h3><div class="price">'+safe(c.price)+'</div><p>'+safe(c.summary)+'</p><div class="specs"><span>'+safe(c.fuel)+'</span><span>'+safe(c.seats)+' seats</span><span>'+safe(c.type)+'</span></div><div class="actions"><button class="details" data-detail="'+safe(c.id)+'">View details & variants</button><button class="add '+(chosen.includes(c.id)?"selected":"")+'" data-add="'+safe(c.id)+'">'+(chosen.includes(c.id)?"✓ Added":"＋ Compare")+'</button></div></div></article>').join("")||"<p>No cars match these filters.</p>";
+ const pager=$("carsPagination");
+ if(pager){
+  pager.innerHTML=pageCount>1
+   ? '<button type="button" data-page="'+(currentPage-1)+'" '+(currentPage===1?"disabled":"")+'>← Previous</button><span>Page '+currentPage+' of '+pageCount+'</span><button type="button" data-page="'+(currentPage+1)+'" '+(currentPage===pageCount?"disabled":"")+'>Next →</button>'
+   : "";
+  pager.querySelectorAll("[data-page]").forEach(button=>button.addEventListener("click",()=>{
+   const next=Number(button.dataset.page);
+   if(next<1||next>pageCount)return;
+   currentPage=next;render();
+   $("cars").scrollIntoView({behavior:"smooth",block:"start"});
+  }));
+ }
+}
+
 function compare(){
  const selectedIds=[...new Set(chosen)].slice(0,3);
  const items=selectedIds.map(id=>AUTO_CARS.find(c=>c.id===id)).filter(Boolean);
@@ -88,9 +132,11 @@ document.addEventListener("click",e=>{
   else{if(chosen.length===3){toast("You can compare up to 3 cars.");return}chosen.push(id);render();compare();toast("Added to your comparison.");requestAnimationFrame(()=>scrollToComparison())}
  }
 });
-["search","market","body","fuel","sort"].forEach(id=>{
+ensureCatalogueControls();
+["search","market","brand","body","fuel","sort"].forEach(id=>{
  const control=$(id);
- control.addEventListener(id==="search"?"input":"change",render);
+ if(!control)return;
+ control.addEventListener(id==="search"?"input":"change",()=>{currentPage=1;render()});
 });
 $("clear").onclick=()=>{chosen=[];render();compare()};
 function scrollToComparison(){const section=$("compare");if(!section)return;section.classList.remove("compare-highlight");void section.offsetWidth;section.classList.add("compare-highlight");requestAnimationFrame(()=>requestAnimationFrame(()=>{const top=section.getBoundingClientRect().top+window.scrollY-88;window.scrollTo({top:Math.max(0,top),behavior:"smooth"})}));setTimeout(()=>section.classList.remove("compare-highlight"),1800)}
