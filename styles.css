@@ -654,3 +654,285 @@ main.article-page{
   .hero-visual.photo-hero>img{animation:none;transform:none;will-change:auto}
   .hero-visual.photo-hero::after{animation:none;opacity:.35}
 }
+
+
+/* AutoMate: keep the catalogue controls and cards visible on first page load. */
+#cars:not(.cars-revealed) .filters,
+#cars:not(.cars-revealed) .results{display:flex!important}
+#cars:not(.cars-revealed) #carsGrid{display:grid!important}
+#cars:not(.cars-revealed) > .note{display:block!important}
+
+
+
+/* AutoMate catalogue filters and accessible pagination */
+#cars .filters select,#cars .filters input{min-width:135px}
+#cars .filters #search{min-width:220px}
+#cars .cars-pagination{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto 4px;min-height:44px}
+#cars .cars-pagination:empty{display:none}
+#cars .cars-pagination button{border:1px solid #cbdced;border-radius:8px;background:#fff;color:#1769aa;padding:10px 16px;font:700 13px "DM Sans",sans-serif;cursor:pointer}
+#cars .cars-pagination button:disabled{opacity:.42;cursor:not-allowed}
+#cars .cars-pagination span{color:#52647b;font-size:13px;font-weight:700;white-space:nowrap}
+@media(max-width:620px){
+ #cars .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ #cars .filters #search{grid-column:1/-1;min-width:0;width:100%}
+ #cars .filters select{min-width:0;width:100%;font-size:12px}
+ #cars .cars-pagination{gap:9px}
+ #cars .cars-pagination button{padding:9px 11px;font-size:12px}
+ #cars .cars-pagination span{font-size:11px}
+}
+
+/* Dedicated detail-page links in catalogue cards */
+.actions a.details{display:flex;align-items:center;justify-content:center;flex:1;min-height:48px;padding:10px 8px;border:1px solid #cbd8e6;border-radius:6px;background:#fff;color:#1769aa;font-size:11px;font-weight:700;text-align:center;text-decoration:none;}
+.actions a.details:hover{background:#eef6fc;border-color:#1769aa;}
+
+
+/* AutoMate detail pages: restore strong contrast on dark panels. */
+.detail-main .detail-panel h2,
+.detail-main .buyer-grid h3{
+  color:#f3f6fb!important;
+}
+.detail-main .spec b,
+.detail-main .variant-table td,
+.detail-main .buyer-grid li{
+  color:#d5deea!important;
+}
+.detail-main .spec small{
+  color:#aebbd0!important;
+}
+.detail-main .variant-table th{
+  color:#f0c66e!important;
+}
+.detail-main .detail-panel{
+  color:#d5deea;
+}
+.detail-main .detail-panel p,
+.detail-main .detail-panel li{
+  color:#c3cedd;
+}
+.detail-main .disclaimer{
+  color:#aebbd0!important;
+}
+.detail-main .variant-wrap{
+  max-width:100%;
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:#64748b #182437;
+}
+.detail-main .variant-table{
+  min-width:760px;
+}
+.detail-main .variant-table th,
+.detail-main .variant-table td{
+  color:#d5deea;
+  line-height:1.55;
+}
+.detail-main .variant-table th{
+  color:#f0c66e;
+}
+@media(max-width:700px){
+  .detail-main .detail-panel h2{color:#f3f6fb!important}
+  .detail-main .spec b{font-size:14px;color:#e4ebf5!important}
+  .detail-main .variant-wrap::after{
+    content:"Swipe left or right to view all variant columns";
+    display:block;
+    padding:9px 2px 0;
+    color:#aebbd0;
+    font-size:11px;
+  }
+}
+
+
+/* AutoMate car detail pages — Light Blue + White premium theme */
+.detail-main .detail-panel{
+  background:#eaf4ff!important;
+  border:1px solid #c8def3!important;
+  color:#17365d!important;
+  box-shadow:0 8px 24px rgba(23,54,93,.06);
+}
+.detail-main .detail-panel h2,
+.detail-main .buyer-grid h3{
+  color:#12345a!important;
+}
+.detail-main .spec{
+  background:#ffffff!important;
+  border:1px solid #d5e5f4!important;
+  border-radius:8px;
+}
+.detail-main .spec small{
+  color:#54708f!important;
+}
+.detail-main .spec b{
+  color:#173f70!important;
+}
+.detail-main .buyer-grid>div{
+  background:#ffffff!important;
+  border:1px solid #d5e5f4!important;
+  border-radius:8px;
+}
+.detail-main .buyer-grid li,
+.detail-main .detail-panel p{
+  color:#405a78!important;
+}
+.detail-main .detail-panel .disclaimer{
+  color:#617994!important;
+}
+.detail-main .variant-wrap{
+  background:#ffffff;
+  border:1px solid #d5e5f4;
+  border-radius:8px;
+  scrollbar-color:#8db9e2 #edf5fc;
+}
+.detail-main .variant-table{
+  background:#ffffff;
+}
+.detail-main .variant-table th{
+  color:#174f85!important;
+  background:#edf6ff;
+}
+.detail-main .variant-table td{
+  color:#294765!important;
+}
+.detail-main .variant-table th,
+.detail-main .variant-table td{
+  border-bottom:1px solid #d5e5f4!important;
+}
+.detail-main .variant-table tbody tr:nth-child(even){
+  background:#f3f8fe;
+}
+.detail-main .variant-table tbody tr:nth-child(odd){
+  background:#ffffff;
+}
+.detail-main .variant-table tbody th{
+  background:transparent;
+  color:#174f85!important;
+}
+.detail-main .variant-wrap::after{
+  color:#54708f!important;
+}
+.detail-main .detail-panel a{
+  color:#1769aa!important;
+}
+@media(max-width:700px){
+  .detail-main .detail-panel{padding:17px;background:#eaf4ff!important}
+  .detail-main .spec b{color:#173f70!important}
+}
+
+
+/* AutoMate site-wide visual system — Light Blue + White + Navy */
+:root{
+  --bg:#f3f8fe;
+  --panel:#ffffff;
+  --line:#d7e5f3;
+  --text:#17365d;
+  --muted:#58718f;
+  --gold:#1769aa;
+}
+html,body{background:#f3f8fe!important;color:#17365d!important}
+body{color:#17365d!important}
+header{
+  background:rgba(255,255,255,.96)!important;
+  border-bottom:1px solid #d9e7f4!important;
+  box-shadow:0 3px 14px rgba(25,62,100,.05);
+}
+header nav a,header .link{color:#365675!important}
+header nav a:hover,header .link:hover{color:#1769aa!important}
+#menu{color:#17365d!important}
+.brand,header .brand{color:#17365d!important}
+.brand span{color:#1769aa!important}
+header .cta{border-color:#1769aa!important;color:#1769aa!important}
+.hero{background:linear-gradient(120deg,#f4f9ff 0%,#e6f2ff 100%)}
+.hero h1,.heading h2,.closing h2{color:#12345a!important}
+.hero em,.heading em,.closing em{color:#1769aa!important}
+.hero p,.heading p,.closing p{color:#58718f!important}
+.hero .stats b{color:#17365d!important}
+.hero .stats small{color:#58718f!important}
+.hero .stats span{border-color:#cbdced!important}
+.button{background:#1769aa!important;color:#fff!important}
+.button.outline{background:transparent!important;color:#1769aa!important;border-color:#1769aa!important}
+.markets{
+  background:#eaf4ff!important;
+  border-color:#d5e5f4!important;
+  color:#58718f!important;
+}
+.markets b{color:#174f85!important}
+.section{background:#f3f8fe!important}
+.section.alt{background:#eaf4ff!important;border-color:#d5e5f4!important}
+.heading>small{color:#68819c!important}
+.eyebrow{color:#1769aa!important}
+.filters input,.filters select,.panel input{
+  background:#fff!important;
+  border:1px solid #cbdced!important;
+  color:#17365d!important;
+}
+.filters input::placeholder,.panel input::placeholder{color:#7890aa!important}
+.results{color:#58718f!important}
+.car,.panel,.guides article{
+  background:#fff!important;
+  border:1px solid #d5e5f4!important;
+  box-shadow:0 6px 20px rgba(23,54,93,.045);
+}
+.car h3,.panel h3,.guides h3{color:#17365d!important}
+.car p,.panel label,.guides p{color:#58718f!important}
+.meta,.specs,.comparetable td:first-child{color:#58718f!important}
+.specs,.comparetable td,.comparetable th{border-color:#d5e5f4!important}
+.comparetable th{color:#1769aa!important}
+.comparetable td{color:#365675!important}
+.details{background:#fff!important;color:#1769aa!important;border-color:#b9d2e9!important}
+.add{background:#1769aa!important;color:#fff!important;border-color:#1769aa!important}
+.add.selected{background:#e0f2e8!important;color:#236344!important;border-color:#9bcdb0!important}
+.empty,.note,#hint{color:#58718f!important}
+.result{
+  background:#eaf4ff!important;
+  border:1px solid #cbdced!important;
+  color:#58718f!important;
+}
+.result strong{color:#1769aa!important}
+.guides article{
+  background:linear-gradient(145deg,#fff,#edf6ff)!important;
+}
+.guides small,.guides a{color:#1769aa!important}
+.closing{
+  background:#e5f2ff!important;
+  border:1px solid #cbdced!important;
+}
+footer{
+  background:#e4f1ff!important;
+  color:#365675!important;
+  border-top:1px solid #cbdced!important;
+}
+footer p,footer small,footer nav a{color:#58718f!important}
+footer .brand{color:#17365d!important}
+footer .brand span{color:#1769aa!important}
+.article-page>h1{color:#12345a!important}
+.article-page>p:first-of-type{color:#58718f!important}
+.article-page>section:not(.related-guides){
+  background:#fff!important;border-color:#d5e5f4!important;
+}
+.article-page>section:not(.related-guides) h2{color:#12345a!important}
+.article-page>section:not(.related-guides) p{color:#405a78!important}
+.article-page>.panel{background:#eaf4ff!important;color:#17365d!important}
+.article-page>.panel h2{color:#12345a!important}
+.article-page>.panel p{color:#405a78!important}
+@media(max-width:700px){
+  header{background:rgba(255,255,255,.98)!important}
+  .section{padding:58px 5%!important}
+  .hero{background:linear-gradient(150deg,#f4f9ff,#e6f2ff)!important}
+}
+
+/* Trigger fresh Cloudflare Pages build for the latest catalogue fix. */
+
+
+/* Footer contrast refinement — deeper blue for clear separation */
+footer{
+  background:#c9def3!important;
+  border-top:1px solid #a9c7e5!important;
+  color:#234568!important;
+}
+footer p,footer small,footer nav a{
+  color:#405f80!important;
+}
+footer .brand{color:#17365d!important}
+footer .brand span{color:#1769aa!important}
+footer nav a:hover{color:#0b4f88!important}
