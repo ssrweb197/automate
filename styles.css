@@ -680,3 +680,7 @@ main.article-page{
  #cars .cars-pagination button{padding:9px 11px;font-size:12px}
  #cars .cars-pagination span{font-size:11px}
 }
+
+/* Dedicated detail-page links in catalogue cards */
+.actions a.details{display:flex;align-items:center;justify-content:center;flex:1;min-height:48px;padding:10px 8px;border:1px solid #cbd8e6;border-radius:6px;background:#fff;color:#1769aa;font-size:11px;font-weight:700;text-align:center;text-decoration:none;}
+.actions a.details:hover{background:#eef6fc;border-color:#1769aa;}
